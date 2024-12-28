@@ -1,0 +1,2871 @@
+\documentclass[11pt]{ctexart}
+\ctexset{
+    section = {
+        titleformat = \raggedright,
+        name = {,.},
+        number = \arabic{section}
+    }
+}
+\usepackage{hyperref}
+
+\usepackage[a4paper,top=2.54cm,bottom=2.54cm,left=3.18cm,right=3.18cm]{geometry}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{tikz}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{physics}
+\usepackage{latexsym}
+\usepackage{tikz-cd}
+\usepackage[utf8]{inputenc}
+\usepackage[OT2,OT1]{fontenc}
+\usepackage{fontspec}
+\setmainfont{CMU Serif}
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+\usetikzlibrary{cd}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{第 \thepage 页~~共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\labelenumii}{\Alph{enumii}.}
+\DeclareMathOperator{\rg}{rk}
+\renewcommand{\sp}{\mathrm{sp}}
+\DeclareMathOperator{\com}{com}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Dim}{dim}
+\DeclareMathOperator{\Max}{max}
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\Deg}{deg}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Log}{log}
+\DeclareMathOperator{\Ord}{ord}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Span}{Span}
+\renewcommand{\tr}{\mathrm{tr}}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\coim}{coim}
+\DeclareMathOperator{\Vect}{Vect}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Card}{Card}
+\DeclareMathOperator{\Sp}{Sp}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\a}{\mathbf{a}}
+\renewcommand{\b}{\mathbf{b}}
+\renewcommand{\c}{\mathbf{c}}
+\renewcommand{\d}{\mathbf{d}}
+\newcommand{\e}{\mathbf{e}}
+\newcommand{\f}{\mathbf{f}}
+\newcommand{\g}{\mathbf{g}}
+\newcommand{\h}{\mathbf{h}}
+\newcommand{\m}{\mathbf{m}}
+\renewcommand{\o}{\mathbf{o}}
+\newcommand{\p}{\mathbf{p}}
+\newcommand{\q}{\mathbf{q}}
+\renewcommand{\r}{\mathbf{r}}
+\newcommand{\s}{\mathbf{s}}
+\renewcommand{\t}{\mathbf{t}}
+\renewcommand{\u}{\mathbf{u}}
+\renewcommand{\v}{\mathbf{v}}
+\newcommand{\w}{\mathbf{w}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\z}{\mathbf{z}}
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\N}{\mathbf{N}}
+\renewcommand{\L}{\mathbf{L}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\inner}[1]{\langle#1\rangle}
+\newcommand{\song}{\CJKfamily{song}}
+\fontsize{12pt}{18pt}\selectfont
+\renewcommand\arraystretch{1}
+\newtheorem{thm}{定理}[section]
+\newtheorem{defi}{定义}[section]
+\newtheorem{pro}{命题}[section]
+\newtheorem{lem}{引理}[section]
+\newtheorem{rem}{注记}[section]
+\newtheorem{exm}{例}[section]
+\setlength{\arraycolsep}{0.1pt} 
+\title{\textbf{阿贝尔簇上的有理点分布}}
+\date{}
+\author{}
+\begin{document}
+\maketitle
+\vspace*{-1.5cm}
+\thispagestyle{fancy}
+\tableofcontents
+\newpage
+\section{预备知识}
+\subsection{引言}
+椭圆曲线是具有至少一个有理点的亏格为1的光滑平面射影曲线.因其具体丰富的算术、几何、分析性质,以及与其他学科的广泛联系,所以椭圆曲线深获古今数学家的关注.比如,它在算术几何、密码学等领域都有着广泛的应用.
+	
+椭圆曲线的解析理论可以追溯到18世纪时数学家们对椭圆弧长的研究,而这也是“椭圆曲线”这个名词的来源.考虑椭圆：
+\begin{equation}\label{equation of ellisoid}
+         \frac{x^2}{a^2}+\frac{y^2}{b^2}=1
+\end{equation}
+的弧长,记$k=(a^2-b^2)/a^2$.通过定积分计算,我们得到对[0,t/a]区间上椭圆弧长的积分函数：
+\begin{equation}
+    L(t)=a\int_{0}^{t/a}\sqrt{\frac{1-kx^2}{1-x^2}}\mathrm{d}x,
+\end{equation}
+它被称为\textbf{椭圆积分}.如果$k\neq0$,这个弧长函数不是基本初等函数.当$a=1, k=0$时,\eqref{equation of ellisoid}式为单位圆,此时$L(t)=\arcsin(t)$是反正弦函数,而其反函数$L^{-1}(t)=\sin(t)$,是更简单的函数.
+
+受此过程启发,Abel意识到在一般的情况下$,L(t)$的反函数具有更好的性质.弧长函数的反函数便是椭圆函数,这是一类双周期的亚纯函数(对任意整数m,n满足$\tau(a+n\omega_1+m\omega_2)=\tau(a)$).Jacobi进一步对这些反函数做出了系统的研究.基于Eise\textup{ns}tein的无穷级数方法,维尔斯特拉斯研究了我们现在称作\textbf{维尔斯特拉斯$\wp$函数}的椭圆函数(见\cite{Stein2003})
+\begin{equation}
+\wp(z)=\frac{1}{z^2}+\sum_{(m,n)\in \mathbb{Z}^2\setminus (0,0)}\left(\frac{1}{(z+m\alpha+n\beta)^2}-\frac{1}{(m\alpha+n\beta)^2}\right)
+\end{equation}
+并且证明了该函数满足函数方程
+\begin{equation}
+(\wp^{\prime}(z))^2=4(\wp(z))^3-g_2\wp(z)-g_3.
+\end{equation}
+于是,($\wp(z)$$,\wp^{\prime}(z)$)满足三次方程
+\begin{equation}
+E :\;y^2=4x^3-g_2x-g_3
+\end{equation}
+记无穷远点为$\mathcal{O}$，则我们得到了从复环面 $\mathbb{C}/(\mathbb{Z}\alpha+\mathbb{Z}\beta)$到解集$E(\mathbb{C})\bigcup \mathcal{O}$的一个双全纯等价(记$\Lambda=\mathbb{C}/(\mathbb{Z}\alpha+\mathbb{Z}\beta)$)
+\begin{center}
+    $\begin{array}{ccll}{}
+        \phi &: \mathbb{C}/\Lambda & \rightarrow & E(\mathbb{C}) \\
+             &   z         &   \mapsto & (\wp(z),\wp^{\prime}(z),1)
+    \end{array}$
+     
+\end{center}
+从上述解析的视角出发,我们最终得到了光滑的三次曲线的弦切构造.事实上,复环面$\mathbb{C}/(\mathbb{Z}\alpha+\mathbb{Z}\beta)$ 继承了$\mathbb{C}$上的加法群结构,继而通过上述双全纯等价诱导了解集$E(\mathbb{C})\cup{\mathcal{O}}$的一个群结构.
+
+在前文我们从解析的角度给出了椭圆曲线的历史动机.下面我们将要给出其严格定义,并证明任意满足我们定义的曲线均具有Weierstrass方程:
+
+\begin{defi}[椭圆曲线]\label{elliptic curves}
+    设$K$是一个域, 则$K$上的椭圆曲线$E$是一个二元对$(E(K),\mathcal{O})$,其中：
+    \begin{itemize}
+        \item $E$是亏格为$1$的$1$维光滑$K$-射影簇.
+        \item $\mathcal{O}\in E(K)$.
+    \end{itemize}
+\end{defi}
+\noindent$\mathcal{O}$ 之后将作为椭圆曲线群的幺元存在。
+
+下面我们利用曲线的Riemann-Roch定理证明任意椭圆曲线都可以写成Weierstrass的形式：
+\begin{lem}设C为亏格g的光滑曲线，$K_C$为C上的典范除子.则对任意除子$D \in\Div(C)$，都有
+    \begin{equation}
+        \ell(D)-\ell(K_C-D)=\Deg D -g+1
+    \end{equation}
+\end{lem}
+\begin{proof}
+    见\cite{Fulton}
+\end{proof}
+\begin{thm}
+    设$E$是定义在$K$上的椭圆曲线,则存在关于$x,y$的方程,使得映射$\psi $,对$\forall~ x,y \in E(K)$
+
+    \begin{center}
+        $\psi:E \rightarrow \mathbb{P}^2$,~~~$\psi$=$[x,y,1]$
+    \end{center}
+    给出了$E/K$到$C$之间的同构.其中,C具有Weierstrass形式：
+
+    \begin{center}
+        $C:Y^2+a_1XY+a_3Y=X^3+a_2X^2+a_4X+a_6$
+    \end{center}
+
+    \noindent 满足$a_1,...,a_6 \in K$且$\psi$($O$)=$[0,1,0]$.x,y称为椭圆曲线的Weierstrass坐标.
+\end{thm}
+
+\begin{proof}
+考虑除子$n(O)$所定义的向量空间$\mathcal{L}(n(O))$$,n=1,2,...$.由于$E$的亏格为1,从而我们有：
+\begin{center}
+    $\Dim \mathcal{L}(n(O))$=$\ell(n(O))$= $\Deg n(O)$=n.
+\end{center}
+因此我们可以选择{$1,x$}为$\mathcal{L}(2(O))$的一组基；这样,{$1,x,y$}为$\mathcal{L}(3(O))$的一组基,其中$x$在$O$具有二阶极点而$y$在$O$具有三阶极点.
+
+\noindent 现在我们观察$\mathcal{L}(6(O))$,它的维数是6.但它包含七个函数：
+
+\begin{center}
+   $ 1,x,y,x^2,xy,y^2,x^3.$
+\end{center}
+
+\noindent 从而他们线性相关,即存在$A_1,...,A_7$,使得：
+
+\begin{equation}
+    A_1+A_2x+A_3y+A_4x^2+A_5xy+A_6y_2+A_7x^3=0
+\end{equation}
+其中$A_4,A_6 \neq 0$,否则与E的光滑性矛盾.
+\end{proof}
+\noindent 而若 char K $\neq $2, 3, 方程(7)则可进一步化为(见\cite{GTM106})
+\begin{center}
+    $ y^2=4x^3+g_2x+g_3$
+\end{center}
+ 
+\noindent 其中多项式$4x^3+g_2x+g_3$无重根. 在本文接下来的内容中, 为简便起见, 均假设char K $\neq $2, 3.
+
+另一方面, 若多项式$4x^3+g_2x+g_3$无重根, 则可以直接验证 K-射影簇Proj $K[x, y, z]$ / $(y^2z-4x^3+g_2xz^2+g_3z^3)$满足定义\ref{elliptic curves}的条件. 故今后我们只将代数簇Proj$K[x, y, z]/(y^2z-4x^3+g_2xz^2+g_3z^3)$\label{ec}作为中心对象.
+
+\subsection{代数数域的代数整数环}
+对于一个给定的代数数域K,设其实、复嵌入的个数分别为r，s.而其上的代数整数全体构成一个环,我们称之为代数整数环,记作$\mathcal{O}_K$,它是一个Dedekind环.特别地、研究其单位群(记作$\mathcal{O}_K^{*}$)的结构是一个自然的问题,将K中所有单位根的集合记作$\mu(K)$,存在正合列：
+
+\begin{center}
+    1$\rightarrow \mu(K) \rightarrow \mathcal{O}_K^{*} \rightarrow \varGamma \rightarrow 0$
+\end{center}
+\noindent 其中$\varGamma$为秩为r+s-1的自由Abel群,而对于$\mathcal{O}_K^{*} $的结构,我们有：
+\begin{thm}[Dirichlet单位定理]\label{Dirichlet}设K为代数数域，他在R中实嵌入的个数为r，复嵌入的个数为s.则其代数整数环$ \mathcal{O}_K $的单位群 $\mathcal{O}_K^{*} $同构于有限阶循环群$\mu(K)$与秩为r+s-1的自由Abel群的直积.
+ 
+\end{thm}
+\begin{proof}
+    见\cite{ant}.
+\end{proof}
+另外,设R是一个整环,记$K=K(R)$为$ R $的分式域.对于分式理想$\mathfrak{a} \in J(K(R))$, 存在互不相同的非零素理想$\mathfrak{p}_1,\mathfrak{p}_2...\mathfrak{p}_g$ $,e_1,e_2, . . . , e_g\in Z$ 使得$\mathfrak{a}=\mathfrak{p}_1^{e_1}...\mathfrak{p}_g^{e_g}$,我们不难看出,K的所有分式理想构成自由Abel群(实际为$\mathcal{O}_K$子模),记为$J_K$.而所有的主分式理想$(a)=\mathfrak{a}\mathcal{O}_K$作成理想群$J_K$的子群,记作$P_K$,称商群
+
+\begin{center}
+    $\textup{Cl}_K=J_K/P_K$
+\end{center}
+\noindent 为K的理想类群,对于它的阶数，我们有
+\begin{thm}[类数]
+理想类群是有限的.
+\end{thm}
+\begin{proof}
+    见\cite{ant}.
+\end{proof}
+
+\subsection{Hilbert分歧理论}
+
+设 $L/K $为数域的扩张,则自然有对应环素谱之间的典范满射$π:$Spec$\mathcal{O}_L$ $\rightarrow $ Spm$\mathcal{O}_K$. 设
+$\mathfrak{p} \in $Spec $\mathcal{O}_K$, 则对理想$\mathfrak{p}\mathcal{O}_L$有唯一的素理想分解:
+\begin{center}
+$\mathfrak{p}\mathcal{O}_L$=$\mathfrak{q}_1^{e_1} \mathfrak{q}_2^{e_2}...\mathfrak{q}_g^{e_g}$~~~~$\mathfrak{q}_i \in $Spec $\mathcal{O}_L$
+\end{center}
+\noindent 其中
+\begin{itemize}
+    \item $e_i$称为$\mathfrak{q}_i$的\textbf{分歧指数}.
+    \item $f_i:=[\mathcal{O}_L/\mathfrak{q_i}:\mathcal{O}_K/\mathfrak{p}]$称为$\mathfrak{q_i}$对$\mathfrak{p}$的\textbf{惯性指数}.
+    \item g称为域扩张[L:K]的\textbf{分裂次数}.
+\end{itemize}
+
+对于有限扩张,我们总是有(\textbf{分歧惯性公式})：
+\begin{equation}
+    [L:K]=\sum_{i=1}^g e_if_i
+\end{equation}
+\begin{proof}
+    见\cite{ant}.
+\end{proof}
+
+\noindent 另外,当$e_i \geqslant 2 1$时,称域扩张L/K在$\mathfrak{q}_i$处\textbf{分歧(ramified)}；
+
+当$e_i = 1$时,称域扩张L/K在$\mathfrak{q}_i$处\textbf{非分歧(unramified)}；
+
+当$e_1 =e_2=...=e_g =1$时,称域扩张L/K在$\mathfrak{p}$处非分歧.
+
+\noindent 特别的,非分歧扩张与剩余域之间的可分扩张之间存在如下对应,即：
+\begin{center}
+    L/K为非分歧扩张$\Leftrightarrow $ 对任意的$\mathfrak{q}\in \pi^{-1}(\mathfrak{p})$, $k(\mathfrak{q}_i)/k(\mathfrak{p})$为可分扩张.
+\end{center}
+
+\begin{defi}[分解群与惯性子群]
+    设L/K为Galois扩张,对$\mathfrak{q}\in \Spec \mathcal{O}_L$,记$\mathfrak{p}=\pi(\mathfrak{q})$,定义$\mathfrak{q}$的\textbf{分解群}为：
+\begin{center}
+    $D_\mathfrak{q}:=D(\mathfrak{q}\mid\mathfrak{p}):=\{\sigma \in \Gal(L/k)|\sigma(\mathfrak{q})=\mathfrak{q}\}$
+\end{center}
+
+\noindent 我们不难发现$,\sigma \in D_{\mathfrak{q}}$诱导了剩余域的自同构
+
+\begin{center}
+    $\widetilde{\sigma}: k(\mathfrak{p}) = \mathcal{O}_L/\mathfrak{p}\rightarrow \mathcal{O}_L/\sigma(\mathfrak{p})~~=k(\mathfrak{p})$
+\end{center}
+
+\noindent 故给出同态
+
+\begin{center}
+    $\begin{array}{cclc}
+    \varphi: &D_{\mathfrak{q}}&\longrightarrow &\Gal(k_{\mathfrak{q}}/k_{\mathfrak{p}})\\
+    
+              &\sigma&\longmapsto &\widetilde{\sigma}
+      \end{array}$
+\end{center}
+
+\noindent 定义$\mathfrak{q}$的\textbf{惯性子群}
+\begin{center}
+    $I_{\mathfrak{q}}:=I(\mathfrak{q}|\mathfrak{p}):= \ker\varphi _{\mathfrak{q}}:=\{\sigma \in Gal(L/K)~|~ \sigma(\mathfrak{q})=\mathfrak{q},\sigma(x)\equiv x($\textup{mod}$\mathfrak{q})$$,\forall x \in \mathcal{O}_L\}$
+\end{center}
+\end{defi}
+
+\begin{pro}~
+
+    \begin{itemize}
+        \item $k_{\mathfrak{q}}/k_{\mathfrak{p}}$为Galois扩张
+        \item $\varphi_{\mathfrak{q}}$为满射,从而有正合列：
+        \begin{center}
+            $0\rightarrow I_{\mathfrak{q}} \rightarrow D_{\mathfrak{q}}\rightarrow \Gal(k_{\mathfrak{q}}/k_{\mathfrak{p}}) \rightarrow 0$ 
+        \end{center}
+        \item $e(\mathfrak{q}|\mathfrak{p})= \# I_{\mathfrak{q}}$$,f(\mathfrak{q}|\mathfrak{p})= \#\Gal(k_{\mathfrak{q}}/k_{\mathfrak{p}}) $
+    \end{itemize}
+
+\end{pro}
+\subsection{群上同调}
+
+设G是有限群,作用在Abel群M上,我们称M是(右)G-模若G在M上的作用满足：
+\begin{center}
+    $m^1=m,~~~(m+m^{\prime})^{\sigma}=m^{\sigma}+m^{\prime\sigma},~~~(m^{\sigma})^{\tau}=m^{\sigma\tau}$
+\end{center}
+\noindent 而给定一个$G$-模,我们通常对于其作用平凡的那些元素感兴趣
+
+\begin{defi}
+    我们定义$G$-模M的第0阶上同调群为：
+    \begin{center}
+        $H^0(G,M)=\{m\in M\mid m^{\sigma}=m,\forall \sigma \in G\}$
+    \end{center}
+\end{defi}
+\noindent 进一步,如果我们令
+\begin{center}
+    $0 \rightarrow P\stackrel{\phi} {\rightarrow} M \stackrel{\varphi} {\rightarrow}  N \rightarrow 0$
+\end{center}
+为G-模正合列,则有第0阶上同调群的正合列
+\begin{center}
+    $0 \rightarrow H^0(G,P)\stackrel{\phi} {\rightarrow} H^0(G,M) \stackrel{\varphi} {\rightarrow} H^0(G,N)$
+\end{center}
+\noindent 注意到$\varphi$不一定是满射。
+
+\begin{defi}
+  设M为G-模,我们定义G到M的1-上链群为
+  \begin{center}
+    $C^1(G,M)=\{$映射$\xi\mid \xi: G\rightarrow M \}$
+  \end{center}
+  \noindent G到M的1-上闭链群为
+  \begin{center}
+    $Z^1(G,M)=\{\xi \in C^1(G,M)\mid\xi_{\sigma\tau}=\xi_{\sigma}^{\tau}+\xi_{\tau},~\forall\sigma$$, \xi \in G\}$
+  \end{center}
+  \noindent G到M的1-上边缘群为
+  \begin{center}
+    $B^1(G,M)=\{\xi \in C^1(G,M):$存在m$\in M$使得对$\forall\sigma \in G$$, \xi_{\sigma}=m^{\sigma}-m\}$
+
+  \end{center}
+
+  \noindent 从而我们进一步定义M的第一阶上同调群为
+  \begin{center}
+    $H^1(G,M)=\frac{Z^1(G,M)}{B^1(G,M)}$
+  \end{center}
+\end{defi}
+
+\noindent 由定义我们发现,若给定G-模短正合列
+\begin{center}
+    $0 \rightarrow P\stackrel{\phi} {\rightarrow} M \stackrel{\varphi} {\rightarrow}  N \rightarrow 0$
+\end{center}
+\noindent 因为模同态保持运算
+\begin{center}
+    $\phi(\xi_{\sigma})=\phi(m^{\sigma}-m)=\phi(m)^{\sigma}-\phi(m)$
+
+    $\phi(\xi_{\sigma\tau})=\phi(\xi_{\sigma}^{\tau}+\xi_{\tau})=\phi(\xi_{\sigma})^{\tau}+\phi(\xi_{\tau})$
+\end{center}
+即诱导长正合列
+\begin{center}
+    
+\begin{tikzcd}
+   0 \rar & H^0(G,P) \rar &  H^0(G,M)\rar
+               \ar[draw=none]{d}[name=X, anchor=center]{}
+      &  H^0(G,N)\ar[rounded corners,
+              to path={ -- ([xshift=4ex]\tikztostart.east)
+                        |- (X.center) \tikztonodes
+                        -| ([xshift=-4ex]\tikztotarget.west)
+                        -- (\tikztotarget)}]{dll}[at end]{\delta} \\      
+                        ~ & H^1(G,P)\rar &  H^1(G,M) \rar &  H^1(G,N)
+  \end{tikzcd}
+\end{center}
+\noindent 这一性质在5.1节中有作用.
+\section{椭圆曲线的几何}
+
+如我们在\ref{ec}中所说的那样,本文的研究对象为射影簇Proj $K[x, y, z]$ / $(y^2z-4x^3+g_2xz^2+g_3z^3)$.而在本章中,我们要描述其上的几何性质：在\ref{2.1}节中,我们将要对其一般形式进行化简；我们将用一套完整的程序来描述这个过程,并且将寻找这个过程中的不变量.进一步,我们将通过这一点来对域上的椭圆曲线做出完全的同构分类.而从\ref{2.2}节开始,我们将要对不同椭圆曲线之间的态射(记作$\Hom(E_1,E_2)$)进行研究；在之后我们会通过借助Tate模来描述$\Hom(E_1,E_2)$的结构.在\ref{2.3}节中,我们最终通过K上绝对Galois群在Tate模上的作用,来完全决定所有椭圆曲线上自同态环(记作End(E))的同构分类.
+
+\subsection{形式不变量\label{2.1}}
+
+由前文的讨论我们知道,当确定椭圆曲线E在射影空间$\mathbb{P}^2$中的嵌入时,固定该射影坐标卡.在仿射开集$\{Z\neq 0\}$上我们可以将该椭圆曲线写成
+\begin{center}
+    $Y^2Z+a_1XYZ+a_3YZ^2=X^3+a_2X^2Z+a_4XZ^2+a_6Z^3$
+\end{center}
+\noindent 对此方程,我们作坐标变换$x=X/Z$$,y=Y/Z$,得到
+
+\begin{center}
+    $E:y^2+a_1xy+a_3y=x^3+a_2x^2z+a_4x+a_6$
+\end{center}
+\noindent 当char(K)$\neq$2时,令：
+
+\begin{center}
+    $y\longmapsto \frac{1}{2}(y-a_1x-a_3)$
+\end{center}
+\noindent 消去y的一次项,于是我们得到
+\begin{center}
+    $y^2=4x^3+b_2x^2+2b_4x+b_6$\label{2s}
+\end{center}
+\noindent 在这里
+\begin{center}
+    $b_2=a_1^2+4a_2$$,b_4=2a_4+a_1a_3$$,b_6=a_3^2+4a_6$
+\end{center}
+\noindent 同样的,当char(K)$\neq$3时,我们作坐标变换
+
+\begin{center}
+    $(x,y)\longmapsto (\frac{x-3b_2}{36},\frac{y}{108})$
+
+    E：$y^2=x^3-27c_4x-54c_6$
+\end{center}
+\noindent 我们定义
+
+
+~~~~~~~~~~~~~~~~~~~~$b_8=a_1^2a_6+4a_2a_6-a_1a_3a_4+a_2a_3^2-a_4^2$,
+
+~~~~~~~~~~~~~~~~~~~~$c_4=b_2^2-24b_4$,
+
+~~~~~~~~~~~~~~~~~~~~$c_6=-b_2^3+36b_2b_4-216b_6$,
+
+~~~~~~~~~~~~~~~~~~~~$\Delta=-b_2^2b_8-8b_4^3-27b_6^2+9b_2b_4b_6$,
+
+~~~~~~~~~~~~~~~~~~~~$j=c_4^3/\Delta$,
+
+~~~~~~~~~~~~~~~~~~~~$\omega=\frac{dx}{2y+a_1x+a_3}=\frac{dy}{3x_2+2a_2x+a_4-a_1y}$.
+   
+\noindent 利用$j$和$\Delta$便可以对一般地Weierstrass方程进行初步分类
+
+\begin{pro}(a)给定一个Weierstrass方程，则：
+    \begin{itemize}
+        \item 该曲线无奇点当且仅当$\Delta \neq $0
+        \item 当$\Delta = $0$,c_4 \neq$0时该曲线有一个二阶奇点,称作该曲线的\textbf{节点(node)}.
+        \item 当$\Delta = $0$,c_4 =$0时该曲线有一个三阶奇点,称为该曲线的\textbf{尖点(cusp)}.
+    \end{itemize}
+
+    (b)设$E_1$$,E_2$为定义在代数闭包$\overline{K}$上的两条椭圆曲线,则它们同构当且仅当它们的$\textbf{$j$-不变量}$相同($j_{E_1}=j_{E_2}$).
+
+    (c)任给$j_0 \in \overline{K}$,均存在一条椭圆曲线$E/K(j_0)$使得它的$j$不变量等于我们所给定的值($j_E=j_0$).
+
+
+\end{pro}
+
+证明是容易的,不难看出,这里的$\Delta$与一般三次方程中所定义的相同,所以(a)是容易验证的,而下面我们将对(b)(c)中的性质进行进一步刻画:
+
+\begin{pro}设$char(K)\neq 2$,则：
+
+(a)每条K上的椭圆曲线都同构于如下形式:
+\begin{center}
+    $E_{\lambda}:y^2=x(x-1)(x-\lambda)$
+\end{center}
+
+(b)$E_{\lambda}$的$j$-不变量
+\begin{center}
+   ($\ast$) $j(E_{\lambda})=2^8\frac{(\lambda^2-\lambda+1)^3}{\lambda^2(\lambda-1)^2}$
+\end{center}
+
+(c)存在映射
+\begin{center}
+    $\overline{K}\backslash\{0,1\}\longrightarrow \overline{K}$,~~~$\lambda\mapsto j(E_{\lambda})$
+\end{center}
+
+\noindent 且该映射是满的,特别地,$j(E_{\lambda})$除了等于0、1728之外是6对1的($\ast$有六个解)；而0是2对1的、1728是3对1的.
+
+
+\end{pro}
+\begin{proof}
+
+(a)对于$char(K)\neq 2$时,我们可以继续进行坐标变换$(x,y)\rightarrow(x,2y)$,使得：
+
+\begin{center}
+    $y^2=(x-e_1)(x-e_2)(x-e_3)$
+\end{center}
+\noindent 再令
+\begin{center}
+    $x=(e_2-e_1)x^{\prime}+e_1$,~~~$y=(e_2-e_1)^{3/2}y^{\prime}$
+\end{center}
+(b)对(a)中的结果带入计算就可以得到.
+
+\noindent (c)在(a)的证明中我们可以看到,我们所有的坐标变换实际都是形如
+
+\begin{center}
+    $x=u^2x^{\prime}$$,y=u^3y^{\prime}$
+\end{center}
+\noindent 的形式,带入计算可得
+
+\begin{center}
+    $x(x-1)(x-\mu)=(x+\frac{r}{u^2})(x+\frac{r-1}{u^2})(x+\frac{r-\lambda}{u^2})$
+\end{center}
+\noindent 比较两侧,我们得到
+\begin{center}
+    $\mu \in \{\lambda,\frac{1}{\lambda},\frac{\lambda}{\lambda-1}\frac{1}{1-\lambda},1-\lambda,\frac{\lambda-1}{\lambda}\}$
+\end{center}
+\noindent 从而映射$\lambda \mapsto j(E_{\lambda})$便具有我们所阐述的性质.
+\end{proof}
+
+
+\subsection{同源与对偶同源\label{2.2}}
+
+在前文中我们较为详细的讨论了,任给一条椭圆曲线,其上的奇点与不变量.而在本节,我们将全体椭圆曲线作为一个范畴、来定义其之间的映射,并具体讨论这些态射的性质.
+
+\begin{defi}[同源映射]
+设$E_1$$,E_2$为两条椭圆曲线,我们定义它们之间的\textbf{同源}$\label{isog}(isogeny)$为态射(代数曲线之间)：
+
+    \begin{center}
+        $\phi : E_1 \rightarrow E_2$,满足$\phi(O)=O$
+    \end{center}
+
+    \noindent 同样的,我们称两条椭圆曲线是同源的(isogeneous),是指存在非退化的同源映射$\phi : E_1 \rightarrow E_2$(毫无疑问它是满射,这是因为代数簇之间的态射的像是紧的\cite{GTM52}).
+\end{defi}  
+\noindent 我们将两条椭圆曲线间所有的同源映射记作$\Hom(E_1,E_2)$.那么不难看出,其对于映射加法构成交换群.而当$E_1=E_2$时,定义该集合的乘法为映射的复合,我们记
+\begin{center}
+    $\End(E)=\Hom(E,E)$
+\end{center}
+\noindent 我们称$\End(E)$为椭圆曲线的自同态环,在\ref{2.3}节中我们会详细讨论其性质、并做出完全分类.
+
+\begin{pro}(a)设E/K为一条椭圆曲线,则对$m\in \mathbb{Z}$其上有自然的自同态：
+    \begin{center}
+       $ \begin{array}{llcc}
+            [m]:&E&\longrightarrow &E\\
+        
+                &P &\longmapsto &\underbrace{P+...+P}_{m} .
+        \end{array}$
+    \end{center}
+    (b)设$E_1,E_2$为椭圆曲线,则其同源群
+    \begin{center}
+        $\Hom(E_1,E_2)$
+    \end{center}
+    \noindent 为自由无挠的$\mathbb{Z}$-模.
+
+    \noindent (c)设E为椭圆曲线,则其自同态环$End(E)$特征为0、且没有非平凡的零因子.
+
+
+
+\end{pro}
+
+\begin{proof} (a)是平凡的.(b)而若$\Hom(E_1,E_2)$有挠,则$\exists \phi \in \Hom(E_1,E_2)$,使得
+\begin{center}
+   $ [m]\circ \phi = [0]$
+\end{center}
+\noindent 考虑次数,我们得到
+\begin{center}
+    $(\Deg[m])(\Deg[\phi])=0$
+\end{center}
+\noindent 便得到(b)中的结论.(对(c)亦如此)
+\end{proof}
+
+在上文的(a)中我们看到了椭圆曲线上具有自然地自同态,下面我们就要定义其同态核,在本节的末尾,我们将要对其核的结构做出讨论.
+
+\begin{defi}设E为椭圆曲线,我们称其上$[m]$同态的核为\textbf{$m-挠$}点,记作$E[m]$,而定义E上挠点为其所有m挠的并,即
+    \begin{center}
+        $E_{textup{tor}}=\bigcup\limits_{m=1}^{\infty}E[m]$.
+    \end{center}
+
+
+
+
+\end{defi}
+
+\begin{rem}当$char(K) \neq 0$时,通常来说映射$i$:
+
+    \begin{center}
+        $
+        \begin{array}{lcl}
+            i:&\mathbb{Z}&\longmapsto \End(E)\\
+
+            &m&\longmapsto [m]
+        \end{array}
+        $
+    \end{center}
+
+就已经可以决定了E上自同态环的结构了,即$\End(E)\cong \mathbb{Z}$.而若$i$不是满射($\End(E)$严格大于$\mathbb{Z}$)时,我们称椭圆曲线E是带有\textbf{复乘(complex multiplication,简称CM)}的.反过来,有限域上的椭圆曲线一般总是带有复乘的.
+
+
+
+\end{rem}
+
+在前文我们验证过,给定两条椭圆曲线,其之间所有的同源映射构成一个群；这是特殊的,因为一般曲线上的映射并不具有这样的性质.这是因为对于椭圆曲线,所有的同源映射与其之间Picard群同态之间存在着一一对应,这样就解释了这一特殊性质的由来.
+
+\begin{thm}令
+    \begin{center}
+        $\phi : E_1 \rightarrow E_2$
+    \end{center}
+\noindent 为同源映射,则存在$Picard$群同态
+\begin{center}
+$\begin{array}{lcl}
+    \phi_{*} : &\Pic^{0}(E_1) &\rightarrow \Pic^{0}(E_2),\\
+    
+    &\sum\limits_{i} n_i(P_i)\textrm{的除子类}   &\mapsto \sum\limits_{i} n_i(\phi(P_i))\textrm{的除子类}.
+\end{array}$
+\end{center}
+
+\end{thm}
+
+
+\begin{proof}
+我们知道,对于三次曲线,其上的点可以定义运算,存在曲线上点与$Picard$群中点的一一对应
+\begin{center}
+    $\kappa_i :E_i \rightarrow \Pic^{0}(E_i)$$,P\mapsto (P)-(O)$的除子类.
+\end{center}
+
+\noindent 从而存在交换图
+\begin{center}
+
+    $E_1 \underset{\kappa_1}{\longrightarrow} \Pic^{0}(E_1)$
+
+    $\phi\downarrow ~~~~~~~~~~~~~~\downarrow\phi_{*} $
+
+    $E_2 \underset{\kappa_2}{\longrightarrow} \Pic^{0}(E_2)$
+
+\end{center}
+
+\noindent 反过来,因为一一对应,所有我们有
+\begin{center}
+
+    $E_2 \overset{\kappa_2}{\longrightarrow} \Pic^{0}(E_2)\overset{\phi_{*}}{\longrightarrow}Pic^{0}(E_1)\overset{\kappa_1^{-1}}{\longrightarrow} E_1$
+\end{center}
+
+\noindent 从而我们定义
+\begin{center}
+    $\widetilde{\phi}=\kappa_1^{-1}\circ\phi^{*} \circ\kappa_2 $
+\end{center}
+\end{proof}
+
+\noindent $\widetilde{\phi}$被称作$\phi$的对偶映射,下面列举出其作为对偶映射被我们熟知的性质.
+
+\begin{pro}令$\phi:E_1 \rightarrow E_2$为m次同源映射,则
+
+    (a)存在唯一的对偶同源
+    $\widetilde{\phi}:E_2 \rightarrow E_1$,使得$\widetilde{\phi}\circ \phi=[m]$$,\phi\circ \widetilde{\phi}=[m]$.
+
+    (b)作为群同态$,\widetilde{\phi}$等价于
+    \begin{center}
+        $E_2 \longrightarrow Div^0(E_2) \overset{\phi^{*}}{\longrightarrow} Div^0(E_1)\overset{sum}{\longrightarrow}E_1$ 
+
+        $~~~Q \longmapsto (Q)-(O)~~~ \sum n_p(P)\longmapsto \sum [n_p]P$
+    \end{center}
+
+    (c)对于任意的$m \in \mathbb{Z}$
+    \begin{center}
+        $\widetilde{[m]}=m$,从而$\Deg[m]=m^2$.
+
+    \end{center}
+
+    (d)$\widetilde{\widetilde{\phi}}=\phi$,从而$\Deg\widetilde{\phi}=\Deg\phi$.
+
+
+
+
+
+\end{pro}
+
+\begin{defi}
+  对任意的$Q \in E_2$
+    \begin{center}
+        $\Deg_s\phi:= \#\phi^{-1}(Q)$
+    \end{center}
+
+    \noindent 进一步,对任意的$ P \in E_1$
+    \begin{center}
+        $\Deg_i\phi:=e_{\phi}(P)$
+    \end{center}
+
+    \noindent 这里的$\Deg_s\phi$称为态射$\phi$的可分次数,即函数域扩张$K(E_1)/\phi^{*}K(E_2)$的可分次数(对于不可分次数$\Deg_s\phi$同理)；$e_{\phi}(P)$是$\phi$在P点的分歧指数.
+\end{defi}
+\begin{pro}
+    (a)映射
+    \begin{center}
+        $\ker\phi \longrightarrow Aut(\overline{K(E_1)}/\phi^{*}\overline{K(E_2)})$
+    \end{center}
+    \noindent 是同构
+
+    (b)若$\phi$是可分的,则$\phi$是非分歧的,即
+    \begin{center}
+        $\#ker\phi=\Deg\phi$
+    \end{center}
+    \noindent 并且函数域$\overline{K(E_1)}$是$\overline{\phi^{*}K(E_2)}$的Galois扩张.
+\end{pro}
+    
+
+
+\begin{proof}
+    可见[9.$\uppercase\expandafter{\romannumeral2}$.6.8].
+\end{proof}
+
+有了上述这些性质,我们便可队前文提到的$E[m]$做出所有分类了
+
+\begin{thm}设E/K为椭圆曲线,设$m\in \mathbb{Z}$$,m\neq 0$
+
+    (a)若$char(K)\neq 0$或者$char(K)=p$$,(p,m)=1$,则
+    \begin{center}
+        
+        $E[m]\cong \frac{\mathbb{Z}}{p\mathbb{Z}}\times \frac{\mathbb{Z}}{p\mathbb{Z}}$
+    \end{center}
+
+    (b)若$char(K)=p$,则下列有一项成立
+    \begin{center}
+        $E[p^e]={O}$ ,对任意的$e=1,2,3...$
+
+        ~
+
+        $E[p^e]= \frac{\mathbb{Z}}{p^e\mathbb{Z}}$,对任意的$e=1,2,3...$
+    \end{center}
+
+
+\end{thm}
+
+
+\noindent 证明：(a)对于任意的$m \in \mathbb{Z}$,我们知道
+\begin{center}
+    $\#E[m]=\Deg[m]=m^2$.
+\end{center}
+\noindent 从而对任意的$d|m$,我们有$\#E[d]=d^2$,从而
+\begin{center}
+$E[m]=\frac{\mathbb{Z}}{m\mathbb{Z}}\times \frac{\mathbb{Z}}{m\mathbb{Z}}$
+\end{center}
+
+\noindent (b)令$\phi$为$p$次$Frobenius$映射
+\begin{center}
+    $\phi:x\rightarrow x^p$
+\end{center}
+考虑其不可分次数,有
+\begin{center}
+    $\#E[p^e]=\Deg_s[p^e]=(\Deg(\widetilde{\phi}\circ \phi))^e=\Deg_s(\widetilde{\phi})^e$
+\end{center}
+\noindent 而我们又有
+\begin{center}
+    $\Deg\widetilde{\phi}=\Deg\phi=p$
+\end{center}
+\noindent 而若$\widetilde{\phi}$纯不可分时$,\Deg_s\widetilde{\phi}=1$,从而有
+\begin{center}
+    $\#E[p^e]=1$
+\end{center}
+\noindent 而若$\widetilde{\phi}$可分时$,\Deg_s\widetilde{\phi}=p$,即
+\begin{center}
+    $\#E[p^e]=p^e$
+\end{center}
+\noindent 这就得到
+\begin{center}
+    $E[p^e]=\frac{\mathbb{Z}}{p\mathbb{Z}}$
+\end{center}
+
+\hfill $\square$
+
+\subsection{Tate模与同源群的结构\label{2.3}}
+
+从上一小节中我们知道,给定一椭圆曲线$E/K$,当$m>1$且$(m,char(K))=1$时,我们有
+\begin{center}
+    $E[m]\cong \frac{\mathbb{Z}}{m\mathbb{Z}}\times \frac{\mathbb{Z}}{m\mathbb{Z}}$.
+\end{center}
+另一方面,作为椭圆曲线的子群$,E[m]$较于 $\frac{\mathbb{Z}}{m\mathbb{Z}}\times \frac{\mathbb{Z}}{m\mathbb{Z}}$有着更丰富的结构：对于任意$\sigma \in Gal(\overline{K}/K)$$,P \in E[m]$,有
+
+\begin{center}
+    $[m](P^{\sigma})=([m]P)^{\sigma}=O^{\sigma}=O$.
+\end{center}
+从而我们得到$G_{\overline{K}/K}=Gal(\overline{K}/K)$的一个表示
+\begin{center}
+    $\rho$：$G_{\overline{K}/K}\longrightarrow \Aut(E[m])\cong GL_2(\mathbb{Z}/m\mathbb{Z}) $
+\end{center}
+而当我们把某些相似结构的表示联系在一起时,便会得到一些更丰富的结构
+
+\begin{defi}[Tate模]令$E/K$为一椭圆曲线,素数$\ell \in \mathbb{Z}$,则定义E上的($\ell$-adic)Tate模为
+\begin{center}
+    $T_{\ell}(E)=\varprojlim\limits_{n}E[\ell^n]$
+\end{center}
+\noindent 其中投射系统为
+\begin{center}
+    $[\ell]$：$E[\ell^{n+1}]\longrightarrow E[\ell^n]$
+\end{center}
+而我们知道$E[\ell^n]$为$\mathbb{Z}/\ell^n\mathbb{Z}$模,从而$T_{\ell}(E)$上便继承了$Z_{\ell}$模结构；进一步,我们自然地可以得到
+
+\begin{pro}Tate模的结构由下列之一给出：
+
+    (a)$T_{\ell}(E) \cong \mathbb{Z}_{\ell} \times \mathbb{Z}_{\ell}$,~~~$\ell \neq char(K)$
+
+    (b)$T_{\ell}(E) \cong \{0\}$或$Z_p$,~~~$\ell = char(K)$
+
+
+\end{pro}
+
+
+\end{defi}
+ 另外,因为Galois群$\Gal(\overline{K}/K)$作用于每一个$E[\ell^i]$上,于是$Gal(\overline{K}/K)$同样作用于Tate模$T_{\ell}(E)$上,我们得到
+
+ \begin{defi}定义Galois群$\Gal(\overline{K}/K)$的($\ell-adic$)表示为
+    \begin{center}
+
+    $\rho_{\ell}$：$G_{\overline{K}/K}\longrightarrow \Aut(T_{\ell}(E))$
+    \end{center}
+
+
+ \end{defi}
+
+ \noindent 而当我们选定$T_{\ell}(E)$的一组$Z_{\ell}$-基时,通过映射
+ \begin{center}
+    $\rho_{\ell}$：$G_{\overline{K}/K}\longrightarrow \Aut(T_{\ell}(E)) \hookrightarrow \Aut(T_{\ell}(E))\otimes_{\mathbb{Z}_{\ell}} \mathbb{Q}_{\ell}$
+ \end{center}
+
+ \noindent 我们有
+ \begin{center}
+    $G_{\overline{K}/K}\longrightarrow GL_2(Z_{\ell})\longrightarrow GL_2(Q_{\ell})$
+ \end{center}
+这对于我们研究$E(E_1,E_2)$的结构十分有帮助:当我们给定$\phi \in E(E_1,E_2)$时
+\begin{center}
+    $\phi : E_1[\ell^n] \longrightarrow E_2[\ell]$
+\end{center}
+\noindent 取逆向极限后我们得到
+\begin{center}
+    $\phi_{\ell}:T_{\ell}(E_1)\longrightarrow T_{\ell}(E_2)$
+\end{center}
+\noindent 从而我们得到诱导映射
+\begin{center}
+    $\Hom(E_1,E_2)\longrightarrow \Hom(T_{\ell}(E_1),T_{\ell}(E_2))$
+\end{center}
+\noindent 下面我们就借助这一点来讨论$\Hom(E_1,E_2)$的性质
+\begin{thm}[]\label{stu}
+    令$E_1,E_2$为椭圆曲线$,\ell \in \mathbb{Z}$为素数,则下列映射
+    \begin{center}
+        $\Hom(E_1,E_2)\otimes \mathbb{Z}_{\ell} \longrightarrow \Hom(T_{\ell}(E_1),T_{\ell}(E_2)) $
+    \end{center}
+    \noindent 为单射,从而$\Hom(E_1,E_2)$作为$\mathbb{Z}$-模维数\textbf{至多为4}.
+
+
+\end{thm}
+\begin{proof}我们首先证明如下事实：
+
+$\ast$ 设$M\subset \Hom(E_1,E_2)$为有限生成子群,令$M^{\textup{div}}=\{\phi \in \Hom(E_1,E_2):[m]\circ \phi \in M$对一些整数m$\in \mathbb{Z} \}$,则$M^{\textup{div}}$亦为有限生成的.
+\begin{proof}
+    我们将M延拓为实线性空间$M\otimes \mathbb{R}$,定义范数为映射的次数,则下列集合
+\begin{center}
+    $U=\{\phi \in M\otimes \mathbb{R}:\Deg\phi  < 1\}$
+\end{center}
+\noindent 为$M\otimes \mathbb{R}$中0的开邻域,而又因为对任意非零同源映射$\phi$,有$\Deg\phi>1$,从而
+\begin{center}
+    $M^{\textup{div}}\subset M\otimes \mathbb{R}$$,M^{\textup{div}}\cap U =\{0\} $.
+\end{center}
+\noindent 即$M^{\textup{div}}$为$M\otimes \mathbb{R}$的离散子群,从而是有限生成的.
+
+\end{proof}
+而对$\phi \in \Hom(E_1,E_2)\otimes \mathbb{Z}_{\ell}$,若$\phi_{\ell}=0$;令M为$\Hom(E_1,E_2)$中的有限生成子群,且$\phi_{ell}\in M\otimes \mathbb{Z}_{\ell}$；由$\ast $我们知道$M^{\textup{div}}$是有限生成的,令
+\begin{center}
+    $\psi_1,...,\psi_t \in \Hom(E_1,E_2)$
+\end{center}
+\noindent 为$M^{\textup{div}}$的一组基,而
+\begin{center}
+    $\phi=\alpha_1\psi_1+...\alpha_t\psi_t$$,\alpha_1,...,\alpha_t \in \mathbb{Z}_{\ell}$.
+\end{center}
+\noindent 我们选取$a_1,...,a_t \in \mathbb{Z}$满足
+\begin{center}
+    $ a_i \equiv \alpha_i \mod\ell^n$
+\end{center}
+\noindent 而由假设$\phi_{\ell}=0$我们知道
+\begin{center}
+    $\psi = [a_1]\circ\psi_1+\cdots+[a_t]\psi_t \in \Hom(E_1,E_2) $
+\end{center}
+\noindent 在$E[\ell^n]$上作用为0,即Ker$[\ell^n] \subset $Ker$\psi$,从而存在$\lambda \in \Hom(E_1,E_2)$,使得
+\begin{center}
+    $\psi =[\ell^n]\circ \lambda$
+\end{center}
+\noindent 即$\lambda \in M^{\textup{div}}$,从而存在$b_i \in \mathbb{Z}$,使得
+\begin{center}
+    $\lambda =[b_1]\circ \psi_1+\cdots+[b_t]\circ\psi_t$
+\end{center}
+\noindent 而通过 $\psi =[\ell^n]\circ \lambda$我们知道
+\begin{center}
+    $a_i=\ell^nb_i$
+\end{center}
+\noindent 这样就得到
+\begin{center}
+    $\alpha_i \equiv 0(\mod ~\ell^n)$
+\end{center}
+\noindent 即对任意的$n\in \mathbb{Z}$$,\alpha_i=0$,这样就得到$\phi=0$.
+\end{proof}
+
+定理\ref{stu}告诉我们$\Hom(E_1,E_2)\otimes \mathbb{Z}_{\ell} $可以被嵌入到$\Hom(T_{\ell}(E_1),T_{\ell}(E_2)) $当中,但一般该嵌入不是满射,下列定理阐述了两种同构的情况；这种情况下$\Hom(E_1,E_2)$的结构是比较清楚的
+
+\begin{thm}[同源]设$\ell \neq char(K)$为一素数,则嵌入
+    \begin{center}
+        $\Hom(E_1,E_2)\otimes \mathbb{Z}_{\ell} \longrightarrow \Hom(T_{\ell}(E_1),T_{\ell}(E_2)) $
+    \end{center}
+
+\noindent 在以下两种情况下是同构
+
+(a)$K$是有限域(Tate\cite{Tate}).
+
+(b)$K$是数域(Faltings\cite{Faltings1},\cite{Faltings3}).
+
+\end{thm}
+
+而当$E_1=E_2$时,自同态环$End(E)$具有着比$\Hom(E_1,E_2)$更精确的结构；在前文的讨论中,我们已经知道了
+
+(a)$End(E)$是特征0的,无平凡零因子、且作为$\mathbb{Z}$-模维数至多为4.
+
+(b)$End(E)$中有自然地对偶$\phi \mapsto \widetilde{\phi}$.
+
+(c)对任意地$\phi \in End(E)$,乘积$\phi \widetilde{\phi}$为一非负整数,且$\phi \widetilde{\phi}=0$当且仅当$\phi=0$.
+
+\noindent 下面我们将要证明,满足条件$(a)-(c)$的环只有有限种结构
+\begin{defi}令$\mathcal{K}$为$\mathbb{Q}$上的有限生成($\mathbb{Q}$-)代数.$\mathcal{K}$的子环$\mathcal{R}$为有限生成$\mathbb{Z}$-模,且满足$\mathcal{R}\otimes \mathbb{Q}=\mathcal{K}$,则称$\mathcal{R}$是$\mathcal{K}$的一个\textbf{阶(order)}.
+
+\end{defi}
+
+\begin{thm}设$\mathcal{R}$为特征0、无非平凡0因子的环,且满足如下三点
+
+    (a)$\mathcal{R}$作为$\mathbb{Z}$-模维数至多为4.
+
+    (b)$\mathcal{R}$中有自然的对偶$\alpha \mapsto \widetilde{\alpha}$,满足
+    \begin{center}
+        $\widetilde{\alpha+\beta}=\widetilde{\alpha}+\widetilde{\beta}$$,\widetilde{\alpha\beta}=\widetilde{\beta}\widetilde{\alpha}$$,\widetilde{\widetilde{\alpha}}=\alpha$$,\widetilde{\alpha}=\alpha$对$a\in \mathbb{Z} \subset \mathcal{R}$
+    \end{center}
+
+    (c)对$\alpha \in \mathcal{R}$,乘积$\widetilde{\alpha}\alpha$为非负整数,且$\widetilde{\alpha}\alpha=0$当且仅当$\alpha=0$.
+
+    \noindent 则$\mathcal{R}$具有如下之一的结构:
+
+    (a)$\mathcal{R} \cong \mathbb{Z}$.
+
+    (b)$\mathcal{R}$是虚二次域的一个阶(作为$\mathbb{Q}$-代数).
+
+    (c)$\mathcal{R}$是四元数代数的一个阶(作为$\mathbb{Q}$-代数).
+
+\end{thm}
+
+\begin{proof}令$\mathcal{K}=\mathcal{R}\otimes \mathbb{Q}$,因为$\mathcal{R}$已经是有限生成$\mathbb{Z}$-模,只需证明$\mathcal{K}$满足上述三条之一即可.
+
+首先我们定义$\mathcal{K}$上的迹和范数,
+\begin{center}
+    $N\alpha =\alpha \widetilde{\alpha}$$,T\alpha=\alpha+\widetilde{\alpha}$
+\end{center}
+\noindent 观察可以得到
+\begin{center}
+    $T\alpha=1+N\alpha-N(\alpha-1)$
+\end{center}
+\noindent 所以$T\alpha \in \mathbb{Q}$,而若$\alpha \in \mathcal{K}$$,T\alpha=0$,则
+\begin{center}
+    $0=(\alpha-\alpha)(\alpha-\widetilde{\alpha})=\alpha^2-(T\alpha)\alpha+N\alpha=\alpha^2+N\alpha$.
+\end{center}
+\noindent 从而$\alpha^2=-N\alpha$,则
+\begin{center}
+    $\alpha \neq 0$且$T\alpha=0 \Longrightarrow \alpha^2 \in \mathbb{Q}$$,\alpha^2<0$.
+\end{center}
+若$\mathcal{K}\neq \mathbb{Q}$,则已经证毕.我们取$\alpha \in \mathcal{K}$$,T\alpha\neq 0$,否则,我们令$\alpha =\alpha-\frac{1}{2}T\alpha$即可.且$\alpha^2 \in \mathbb{Q}$,从而$\mathbb{Q}(\alpha)$为虚二次域.若$\mathcal{K}=\mathbb{Q}(\alpha)$,则证毕.
+
+而若$\mathcal{K}\neq \mathbb{Q}(\alpha)$时,我们假设$\beta \in \mathcal{K} $且$\beta \notin  \mathbb{Q}(\alpha) $,我们令
+\begin{center}
+    $\beta = \beta -\frac{1}{2}T\beta-\frac{T(\alpha\beta)}{2\alpha^2}\alpha$.   
+\end{center}
+\noindent 我们知道$T\alpha=0$且$\alpha^2 \in \mathbb{Q}$,进一步计算得
+\begin{center}
+    $T\beta =T(\alpha\beta)=0$
+\end{center}
+\noindent 特别的$,\beta \in \mathbb{Q}$且$\beta^2<0$,列举
+\begin{center}
+    $T\alpha=0$$,T\beta=0$$,T(\alpha\beta)=0$.
+\end{center}
+\noindent 得到
+\begin{center}
+    $\alpha=-\widetilde{\alpha}$$,\beta=-\widetilde{\beta}$$,\alpha\beta=-\widetilde{\beta}\widetilde{\alpha}$.
+\end{center}
+\noindent 即$\mathbb{Q}(\alpha,\beta)$为四元数代数,而$\mathbb{Q}(\alpha,\beta)=\mathbb{Q}+\mathbb{Q}\alpha+\mathbb{Q}\beta+\mathbb{Q}\alpha\beta$,维数为4,故$\mathcal{K}=\mathbb{Q}(\alpha,\beta)$,证毕.
+\end{proof}
+\section{有限域上的椭圆曲线}
+在本章中我们考虑定义在有限域上的椭圆曲线$E/\mathbb{F}_q$.简单来说,我们将估计$E(\mathbb{F}_q)$中的元素个数,并利用这点证明有限域椭圆曲线上的\textbf{Weil猜想}(更多情形见Deligne的证明\cite{Weil1}\cite{Weil2}).
+
+\subsection{$\mathbb{F}_q$点与Hasse估计}
+给定有限域$\mathbb{F}_q$和椭圆曲线$E/\mathbb{F}_q$,设$(x,y) \in E(\mathbb{F}_q)$,即：
+\begin{center}
+    $y^2+a_1xy+a_3y=x^3+a_2x^2+a_4x+a_6,(x,y)\in \mathbb{F}_q^2$.
+\end{center}
+\noindent 首先我们有粗略得估计：给定一个$x$,左侧关于$y$是二次方程,故至多得到两个$y$,从而、
+\begin{center}
+    $\#E(\mathbb{F}_q)\leqslant 2q+1$.
+\end{center}
+而对一个有限域,其上的二次剩余和非二次剩余各占一半.所以对于任给的二次方程,由于这种随机性,我们猜测其解集的阶数大致应该为q,即$E(\mathbb{F}_q)\thicksim q+o(q)$.而以下定理说明,我们的这种猜测是正确的
+\begin{thm}[Hasse]设$E/\mathbb{F}_q$为椭圆曲线,则有
+    \begin{center}
+        $|\#E(\mathbb{F}_q)-q-1|\leqslant 2\sqrt{q}$
+    \end{center}
+
+\end{thm}
+\begin{proof}我们选取$q$-次Frobenius同态
+\begin{center}
+    $\phi :E \rightarrow E$$,(x,y)\mapsto (x^q,y^q)$
+\end{center}
+\noindent 因为$\phi$为$Gal(\overline{\mathbb{F}}_q/\mathbb{F})$的生成元,从而对任意的$P\in E(\overline{\mathbb{F}}_q)$
+\begin{center}
+    $P \in E(\mathbb{F}_q)$当且仅当$\phi(P)=P$.
+\end{center}
+\noindent 这等价于
+\begin{center}
+    $E(\mathbb{F}_q)=\ker(1-\phi)$.
+\end{center}
+\noindent 从而我们得到
+\begin{center}
+    $\#E(\mathbb{F}_q)=\#\ker(1-\phi)=\Deg(1-\phi)$
+\end{center}
+\noindent 下面我们证明
+\begin{center}
+    $|\Deg(\phi-1)-\Deg(\phi)-\Deg(Id)|\leqslant 2\sqrt{\Deg(\phi)\Deg(1)}$.
+\end{center}
+\noindent 已经知道$,\Deg$是定义在End(E)上的正定二次型,我们对任意的$\psi, \phi \in $End(E),令
+\begin{center}
+    $L(\phi,\psi)=\Deg(\psi-\phi)-\Deg(\phi)-\Deg(\psi)$.
+\end{center}
+\noindent 不难验证L具有双线性,而对任意的$m,n\in\mathbb{Z}$
+\begin{center}
+    $0\leqslant \Deg(m\psi-n\phi)=m^2\Deg(\psi)+mnL(\psi,\phi)+n^2\Deg(\phi) $.
+
+\end{center}
+\noindent 特别的,取
+\begin{center}
+    $m=-L(\phi,\psi),n=2\Deg(\psi)$.
+\end{center}
+\noindent 我们得到
+\begin{center}
+   $ 0\leqslant \Deg(\psi)(4\Deg(\psi)\Deg(\phi)-L(\psi,\phi))$. 
+\end{center}
+\noindent 再令$\psi =1$即可.
+\end{proof}
+\subsection{Weil猜想}
+在本节中我们将介绍有限域上的黎曼假设——这得益于André-Weil的惊人洞察；这也是支持我们相信广义黎曼假设成立的重要依据之一.
+\begin{defi}我们定义代数簇$V/\mathbb{F}_q$上的\textbf{zeta函数}\label{zeta}为
+    \begin{center}
+        $Z(V/\mathbb{F}_q;T)=\exp(\sum\limits_{n=0}\limits^{\infty}(\#V(\mathbb{F}_{q^n})\frac{T^n}{n}))$.
+    \end{center}
+\end{defi}
+\begin{rem}
+    当我们选取$F(T)\in Q[[T]]$为一常数项为0的形式幂级数,我们定义$exp~(F(T))=\Sigma_{k\geqslant 0}~F(T)^k/k!$；而如果我们知道了$Z(V/\mathbb{F}_q$;$T)$的表达式,我们就可以通过这点来计算$\#V(\mathbb{F}_q^{n})$
+    \begin{center}
+        $\#V(\mathbb{F}_q^n)=\frac{1}{(n-1)!}\frac{d^n}{dT^n}logZ(V/\mathbb{F}_q$;$T)$.
+    \end{center}
+
+\end{rem}
+\noindent 下面我们通过观察一个例子来引出$Weil$猜想.
+\begin{exm}令$V=\mathbb{P}^n$为n维射影空间,我们来计算$\#\mathbb{P}^N(\mathbb{F}_{q^n})$,有
+    \begin{center}
+        $\#\mathbb{P}^N(\mathbb{F}_{q^n})=\frac{q^{n(N+1)-1}}{q^n-1}$=$\sum\limits_{i=0}\limits^{N}q^{ni}$,
+    \end{center}
+\noindent 所以
+\begin{center}
+    $\log~Z(\mathbb{P}^n/\mathbb{F}_q$ ; $T)=\sum\limits_{n=0}\limits^{\infty}(\sum\limits_{i=1}\limits^{N}q^{ni})\frac{T^n}{n}=\sum\limits_{i=1}\limits^{N}-\log(1-q^iT)$.
+\end{center}
+\noindent 从而
+\begin{center}
+   $ Z(\mathbb{P}^n/\mathbb{F}_q$ ; $T)=\frac{1}{(1-T)(1-qT)...(1-q^NT)}$.
+\end{center}
+\noindent 更一般的,若$\#V(\mathbb{F}^q)=m^n$,则$ Z(\mathbb{P}^n/\mathbb{F}_q$ ; $T)$为有理函数.
+
+\end{exm}
+
+\begin{thm}[\textbf{Weil猜想}\label{weil}]设$V/\mathbb{F}_q$为N维光滑射影簇$,Z(V/\mathbb{F}_q$；$T)$为V上的$zeta$函数,则
+
+    $(a)$有理性
+    \begin{center}
+        $ Z(\mathbb{P}^n/\mathbb{F}_q$ ; $T)\in \mathbb{Q}(T)$.
+    \end{center}
+
+    $(b)$存在整数$\epsilon $,使得
+    \begin{center}
+        $ Z(\mathbb{P}^n/\mathbb{F}_q$ ; $1/q^nT)$~=~$\pm q^{N\epsilon/2}T^{\epsilon} Z(\mathbb{P}^n/\mathbb{F}_q$ ; $T)$
+    \end{center}
+
+    其中$\epsilon$叫做$V$的\textbf{欧拉示性数(Euler characteristic)}.
+
+
+    $(c)$黎曼假设
+
+    $zeta$函数可以分解为
+    \begin{center}
+        $ Z(\mathbb{P}^n/\mathbb{F}_q$ ; $T)=\frac{P_1(T)...P_{2N-1}(T)}{P_0(T)P_2(T)...P_{2N}(T)}$
+    \end{center}
+
+    其中$P_i(T)\in \mathbb{Z}$[T],且
+    \begin{center}
+        $P_0(T)=1-T$~~,~~$P_{2N}=1-q^NT$
+    \end{center}
+
+    对任意的$0\leqslant i \leqslant 2N$,多项式$P_i(T)$在$\mathbb{C}$[T]上可以被分解为
+    \begin{center}
+        $P_i(T)=\prod \limits_{j=1}\limits^{b_i}(1-\alpha_{ij}T)$$,|\alpha_{ij}=q^{i/2}|$.
+    \end{center}
+
+    其中T的次数$b_i$称为V的第$i$个\textbf{Betti数}.
+
+\end{thm}
+\noindent 下面我们考虑椭圆曲线的情形
+
+\begin{proof}
+
+首先我们先要计算 $Z(E\mathbb{F}_q;T)$;令$\phi$为q次Frobenius同态
+\begin{center}
+    $\phi:E \rightarrow E$$,(x,y)\mapsto (x^q,y^q)$
+\end{center}
+我们知道
+\begin{center}
+    $Z(V/\mathbb{F}_q;T)~=~\Deg(1-\phi)$
+\end{center}
+而对于其迹和范数,我们知道
+\begin{center}
+    det$(\phi_{\ell})~=~\Deg \phi~=~q$,
+
+    $a$:=$tr(\phi_{\ell})=1+\Deg(\phi)-\Deg(1-\phi)=1-q-\#E(\mathbb{F}_q)$
+\end{center}
+其中$\phi_{\ell}$的特征多项式为
+\begin{center}
+    $\det(T-\phi_{\ell})=T^2-tr(\phi_{\ell})+\det(\phi_{\ell})=T^2-aT+q$.
+\end{center}
+设其特征值分别为$\alpha,\beta$,取任意$m/n \in \mathbb{Q}$,我们有
+\begin{center}
+    $\det(\frac{m}{n}-\phi_{\ell})=\frac{\det(m-n\phi_{\ell})}{n^2}=\frac{\Deg(m-n\phi)}{n^2}\geqslant 0$.
+\end{center}
+而多项式$T^2-aT+q$的根复共轭,从而$\alpha=\beta$,且
+\begin{center}
+    $\alpha\beta=\det\phi_{\ell}=\Deg\phi=q$.
+\end{center}
+故$|\alpha|=|\beta|=\sqrt{q}$,从而对任意$n\geqslant 1$,考虑$q^{n}$次Frobenius同态,有
+\begin{center}
+    $\#E(\mathbb{F}_{q^n})=\Deg(1-\phi^n)$.
+\end{center}
+再考虑$\phi_{\ell}^n$的特征多项式为
+\begin{center}
+    det$(1-\phi_{\ell}^n)=(T-\alpha^n)(T-\beta^n)$.
+\end{center}
+从而
+\begin{center}
+    $\#E(\mathbb{F}_{q^n})=\Deg(1-\phi^n)$.
+
+    $~~~~~~~~~~~~=$det$(1-\phi_{\ell}^n)$.
+
+    $~~~~~~~~~~~~~~~~~~~~=1-\alpha^n-\beta^n-q^n$.
+\end{center}
+下面我们带入$zeta$函数,得
+
+~
+
+    $\log Z(E/\mathbb{F}_q;T)=\sum\limits_{n=1}\limits^{\infty}\frac{\#E(\mathbb{F}_{q^n}T^n)}{n}$.
+
+    $~~~~~~~~~~~~~~~~~~~=\sum\limits_{n=1}\limits^{\infty}\frac{(1-\alpha^n-\beta^n-q^n)T^n}{n}$
+
+    $~~~~~~~~~~~~~~~~~~~=-\log(1-T)+\log(1-\alpha T)+\log(1-\beta T)-\log(1-qT)$
+
+\noindent 从而得到
+\begin{center}
+    $Z(E/\mathbb{F}_q;T)=\frac{(1-\alpha T)(1-\beta T)}{(1-T)(1-qT)}$.
+\end{center}
+另一方面
+\begin{center}
+    $a=\alpha+\beta=$tr$(\phi_{\ell})=1-q-\Deg(1-\phi)\in \mathbb{Z}$.
+\end{center}
+这就得到$(a)(c)$的结果,而经过计算,可以看出
+\begin{center}
+    $Z(E/\mathbb{F}_q;1/qT)= Z(E/\mathbb{F}_q;T)$
+\end{center}
+从而其欧拉示性数为0,至此我们得到了所有的结论.
+\end{proof}
+\begin{rem}当我们取$T=q^{-s}$时$,Z(E/\mathbb{F}_q;T)$给出了关于s的函数
+    \begin{center}
+        $\zeta_{E/\mathbb{F}_q}(s)= Z(E/\mathbb{F}_q;q^{-s})=\frac{1-aq^{-s}+q^{1-2s}}{(1-q^{-s})(1-q^{1-s})}$.
+    \end{center}
+    从而我们有
+    \begin{center}
+        $\zeta_{E/\mathbb{F}_q}(s)=\zeta_{E/\mathbb{F}_q}(1-s)$,
+    \end{center} 
+    带入黎曼假设,若$\zeta_{E/\mathbb{F}_q}(s)=0$,我们可以得$|q^{s}|=\sqrt{q}$,即$zeta$函数零点的实部落在$Re(s)=1/2$上;这也是为什么我们称定理\ref{weil}是有限域上黎曼假设的原因.
+
+\end{rem}
+
+
+
+
+
+
+
+
+
+
+\section{局部域上的椭圆曲线}
+在本章中,我们将讨论定义在局部域上的椭圆曲线：在第一节,我们首先讨论在坐标变化中,判别式关于赋值的变化,而后我们将要考虑椭圆曲线上的点在剩余类域中(这个过程我们叫做椭圆曲线的约化)的像；接着在第二节,我们会具体讨论有限阶点在约化下的表现,并借此考虑惯性群在其上的作用；最后一节中我们将对约化进行粗略分类,并考察不同约化的具体性质.
+
+
+\subsection{椭圆曲线的约化}
+设K为局部域，R为K的整数环，$\mathcal{M}$为R的极大理想，定义$E/K$为椭圆曲线
+\begin{center}
+    $E:y^2+a_1xy+a_3y=x^3+a_2x^2+a_4x+a_6=0$
+\end{center}
+我们知道$\Delta \in R$,即$\nu (\Delta)\geq 0$,其中赋值是离散的,我们想要选取一系列坐标变化,使得$\nu (\Delta)$最小:
+\begin{thm}设K为局部域$,E/K$为一椭圆曲线,则我们可以通过一系列坐标变化,使得$\nu (\Delta)$最小；这时椭圆曲线的方程称作\textbf{极小Weierstrass方程},其中：
+
+    $(a)$E的极小Weierstrass方程在相差一个坐标变化的意义下唯一
+    \begin{center}
+        $x=u^2x^{\prime}+r$$,y=u^3y^{\prime}+u^2sx^{\prime}+t$
+    \end{center}
+
+    其中$u \in R^{*},r,s,t \in R$.
+
+    $(b)$不变微分
+    \begin{center}
+        $\omega =\frac{dx}{2y+a_1x+a_3}$
+    \end{center}
+
+    在相差一个单位的意义下唯一.
+
+    $(c)$当任意给定一Weierstrass方程后,我们总可以通过坐标变化
+    \begin{center}
+        $x=u^2x^{\prime}+r$$,y=u^3y^{\prime}+u^2sx^{\prime}+t$
+    \end{center}
+
+    来生成其极小Weierstrass形式.
+\end{thm}
+
+\begin{rem}在实际操作中,我们知道$\Delta^{\prime}=u^{-12}\Delta  $,从而$\nu (\Delta)$在变换中相差12的倍数,于是我们可以通过以下来判断是否为极小形式
+    \begin{center}
+        $a_i \in R$$,\nu (\Delta)<12\Longrightarrow $已为极小形式.
+    \end{center}
+同样的,由$c_4^{\prime}=u^{-4}c_4$$,c_6^{\prime}=u^{-6}c_6$,我们有
+    \begin{center}
+        $a_i \in R$$,\nu (c_4)<4\Longrightarrow $已为极小形式.
+
+        $a_i \in R$$,\nu (c_6)<6\Longrightarrow $已为极小形式.
+    \end{center}
+通过这些我们就可以判断任意给定的方程是否为极小形式.
+\end{rem}
+
+下面我们考虑剩余类映射,我们记E在剩余类域$k=R/\mathcal{M} $中的像为$\widetilde{E}$
+\begin{center}
+    $\widetilde{E}:y^2+\widetilde{a}_1xy+\widetilde{a}_3y=x^3+\widetilde{a}_2x^2+\widetilde{a}_4x+\widetilde{a}_6=0$
+\end{center}
+另一方面,剩余映射$\pi$诱导了$E$中点的映射
+\begin{center}
+    $E(K)\rightarrow \widetilde{E}(k)$$,P\mapsto \widetilde{P}$.
+\end{center}
+但$\widetilde{E}/k$可能不是光滑的,设其光滑点全体构成的群为$\widetilde{E}_{\textup{ns}}(k)$
+\begin{center}
+    $E_0(K)=\{P\in E(K):\widetilde{P} \in \widetilde{E}_{\textup{ns}}(k)\}$,
+
+    $E_1(K)=\{P\in E(K):\widetilde{P}=\widetilde{O}\}$.
+\end{center}
+不难验证,存在下列正合列
+\begin{center}
+    $0\rightarrow E_1(K)\rightarrow  E_0(K)\rightarrow  \widetilde{E}_{\textup{ns}}(k)\rightarrow 0$.
+\end{center}
+
+
+
+
+
+
+\subsection{有限阶点的性质}
+本节中我们要讨论有限阶点$E[m]$在剩余类映射下的性质,这些结果为我们证明Mordell--Weil定理提供依据
+\begin{pro}\label{4.1}设$E/K$为椭圆曲线$,m$为整数且$(m,char(K))=1$,则
+
+    $(a)$子群$E_1(K)$不含有非平凡的m阶点.
+
+    $(b)$若约化$\widetilde{E}/k$光滑,则约化映射
+    \begin{center}
+        $E(K)[m]\rightarrow \widetilde{E}(k)$.
+    \end{center}
+    
+    为单射,从而$E(K)[m]$可以被视作$\widetilde{E}(k)$的子群.
+\end{pro}
+
+这一性质对于我们计算椭圆曲线上的有限阶点十分有帮助,通过下面的例子我们可以看出它的强大威力
+\begin{exm}设$E/\mathbb{Q}$为椭圆曲线
+    \begin{center}
+        $E:y^2+y=x^3-x+1$.
+    \end{center}
+    判别式$\Delta=-611=-13\cdot 47$,从而$\widetilde{E}$在模$2$下光滑,而
+       \begin{center}
+        $\widetilde{E}(\mathbb{F}_2)={O}$
+       \end{center}
+    即$E(\mathbb{Q})[2]={O}$,从而$E(\mathbb{Q})$上没有非平凡的Torsion点.
+\end{exm}
+\begin{thm}设$char(K)=0$$,char(k)=p$.E/K为一椭圆曲线
+\begin{center}
+    $E:y^2+a_1xy+a_3y=x^3+a_2x^2+a_4x+a_6=0$
+\end{center}
+其中$a_i \in R$,设$P\in E(K)$为m阶点,则
+
+(a)若m不为p的幂次,则$x(P),y(P)\in R$.
+
+(b)若$m=p^n$,则
+\begin{center}
+    $\pi^{2r}x(P),\pi^{3r}y(P)\in R$,其中$r=\lfloor\frac{\nu (p)}{p^n-p^{n-1}} \rfloor $
+\end{center}
+\end{thm}
+\begin{proof}若$x(P)\in R$,因为y满足Weierstrass方程,从而$y(P)\in R$.从而$\nu(x(P))<0$,不妨设已经化作极小形式,则有
+\begin{center}
+    $3\nu(x(P))=2\nu(y(P))=-6s$
+\end{center}
+进一步,点$P\in E_1(K)$,从而点P在同构下对应于$-x(P)/y(P)$,但其中无非平凡的m阶点,从而矛盾.
+
+另一方面,我们计算
+\begin{center}
+    $s=\nu(-\frac{x(P)}{y(P)})\leqslant \frac{\nu(p)}{p^n-p^{n-1}}$
+\end{center}
+从而$\pi^{2s}x(P),\pi^{3s}y(P)\in R$.
+\end{proof}
+下面我们考虑惯性群在有限阶点上的作用
+
+\begin{defi}设绝对Galois群$\Gal(\overline{K}/K)$作用在集合$\Sigma$上.我们称$\Sigma$在$\nu$处非分歧是指其惯性群$I_{\nu}$作用在$\Sigma$上是平凡的.
+
+\end{defi}
+
+\begin{thm}设$E/K$为椭圆曲线,约化$\widetilde{E}/k$是光滑的.
+
+    (a)设$m$为正整数且$(m,char(k))=1$($\nu(m)=1$).则\textup{E[m]}在$\nu$上是非分歧的.
+
+    (b)设$\ell$为素数且$\ell\neq char(k)$.则$T_{\ell}(E)$在$\nu$上是非分歧的.
+
+\end{thm}
+
+
+\noindent 证明：(a)因为$\widetilde{E}(k)$是光滑的,所以我们知道
+\begin{center}
+    $E(K)[m]\rightarrow \widetilde{E}(k)$
+\end{center}
+是单射.
+
+而对$\sigma \in I_{\nu},P\in E[m]$.由惯性群的定义我们知道
+\begin{center}
+    $\widetilde{(P^{\sigma}-P)}=\widetilde{P}^{\sigma}-\widetilde{P}=\widetilde{O}$.
+\end{center}
+而$P^{\sigma}-P$在E[m]中,从而 $E[m]\hookrightarrow  \widetilde{E}(k)$得出$P^{\sigma}-P=O$,即$I_{\nu}$在E[m]上作用平凡.
+
+(b)$I_{\nu}$作用在$T_{\ell}(E)$的每个分量上平凡,从而自然在$T_{\ell}(E)$上作用平凡.
+
+
+
+
+
+
+
+
+
+
+\subsection{Néron--Ogg--Shafarevich判据}
+ 在本节中我们将对不同的约化进行讨论,具体来说,我们将结合约化后曲线的性质给出约化的类别,并在最后给出用有限阶点判断约化性质的判据.
+
+\begin{defi}设$E/K$为椭圆曲线$,\widetilde{E}$为E在剩余类域上的约化,则我们称
+
+    (a)E的约化是好的若$\widetilde{E}$光滑.
+
+    (b)E的约化是半稳定的若$\widetilde{E}$有一个二阶奇点.
+
+    (c)E的约化是不稳定的若$\widetilde{E}$有一个尖点.
+
+     \noindent 特别的,我们称(b)和(c)中的约化是坏的.
+\end{defi}
+
+
+\begin{pro}设$E/K$为椭圆曲线,极小Weierstrass方程为：
+    \begin{center}
+        $E:y^2+a_1xy+a_3y=x^3+a_2x^2+a_4x+a_6=0$
+    \end{center}
+    令$\Delta$为判别式$,c_4$如\ref{2.1}中所定义,则
+
+    (a)E的约化是好的当且仅当$\nu(\Delta)=0$,即$\Delta \in R{*}$,从而$\widetilde{E}/k$是光滑的.
+
+    (b)E的约化是半稳定的当且仅当$\nu(\Delta)>0$且$\nu(c_4)=0$,即$\Delta \in \mathcal{M},c_4\in R^{*} $,在这种情况下$,\widetilde{E}_{\textup{ns}}$同构于乘法群
+    \begin{center}
+        $\widetilde{E}_{\textup{ns}}(\overline{k}) \cong \overline{k}^{*}$.
+    \end{center}
+
+    (c)E的约化是不稳定的当且仅当$\nu(\Delta)>0$且$\nu(c_4)>0$,即$\Delta,c_4\in\mathcal{M} $,在这种情况下$,\widetilde{E}_{\textup{ns}}$同构于加法群
+    \begin{center}
+        $\widetilde{E}_{\textup{ns}}(\overline{k}) \cong \overline{k}^{+}$.
+    \end{center}
+
+
+\end{pro}
+
+通常情况下,一条椭圆曲线$E/K$在$k$上的约化不一定是好的；对于这种情况,我们希望找到一个更大的域F,使得椭圆曲线在其上的约化是好的
+\begin{defi}设$E/K$为椭圆曲线,若存在有限扩张$K^{\prime}/K$,使得$E$在$K^{\prime}$上的约化是好的,则称$E/K$上的约化是\textbf{潜在好的}.
+
+
+
+
+\end{defi}
+
+下面定理解释了我们定义的合理性,且对于一些具有良好性质的域扩张,我们将会阐述约化在其上的行为是相同的.
+\begin{thm}[半稳定约化定理]设$E/K$为一椭圆曲线.
+
+    (a)若$K^{\prime}/K$为非分歧扩张,则E在K上的约化类型(好的、半稳定的、不稳定的)和E在$K^{\prime}$上的约化类型是相同的.
+
+    (b)若$K^{\prime}/K$为有限扩张,若E在K上的约化是好的或半稳定的,则E在$K^{\prime}$上的约化亦如此.
+
+    (c)存在有限扩张$K^{\prime}/K$,使得E在$K^{\prime}$上的约化是好的或半稳定的.
+
+    (d)E在K上的约化是潜在好的当且仅当其$j$不变量是整的($j(E)\in R$).
+
+\end{thm}
+\begin{proof}(a)当$char(K)\neq 2,3$时,我们设E/K的极小Weierstrass形式为：
+\begin{center}
+    $E:y^2=x^3+Ax+B$.
+\end{center}
+
+设$R^{\prime}$为$K^{\prime}$的代数整数环$,\nu^{\prime}$为$\nu$在$K^{\prime}$上的延拓,而令
+\begin{center}
+    $x=(u^{\prime})^2x^{\prime},y=(u^{\prime})^3y^{\prime}$
+\end{center}
+为极小方程下的坐标变化,因为$K^{\prime}/K$是非分岐的,我们选取$u\in K$且$u/u^{\prime} \in R$,从而
+\begin{center}
+    $x=(u^{\prime})^2x^{\prime},y=(u^{\prime})^3y^{\prime}$
+\end{center}
+亦给出了$E/K^{\prime}$的极小形式,而因为
+\begin{center}
+    $\nu^{\prime}(u^{-12}\Delta)=\nu^{\prime}((u^{\prime})^{-12}\Delta)$.
+\end{center}
+但是该方程为$R$系数的,从而我们有$\nu(u)=0$,即该方程在$K^{\prime}$上亦为极小形式.进一步,由$\nu^{\prime}(\Delta)=\nu(\Delta)$以及$\nu^{\prime}(c_4)=\nu(c_4)$,从而E在K上的约化类型与$K^{\prime}$上一致.
+
+(b)取椭圆曲线$E/K$的极小形式,设
+\begin{center}
+    $x=(u^{\prime})^2x^{\prime}+r,y=(u^{\prime})^3y^{\prime}+su^2x^{\prime}+t$.
+\end{center}
+为坐标变换,则有
+\begin{center}
+    $0\leqslant \nu^{\prime}(\Delta^{\prime}) = \nu^{\prime}(u^{-12}\Delta) $$,0\leqslant \nu^{\prime}(c_4^{\prime}) = \nu^{\prime}(u^{-4}c_4) $
+\end{center}
+从而我们有
+\begin{center}
+    $0\leqslant \nu^{\prime}(u^{\prime})\leqslant $min$\{\frac{1}{12}\nu^{\prime}(\Delta^{\prime}),\frac{1}{4}\nu^{\prime}(c_4^{\prime})\}$.
+\end{center}
+即E在K上的的半稳定约化和好约化自然延拓到$K^{\prime}$上.
+
+(c)我们不妨设$E/K$的极小形式可以写成Legendre形式
+\begin{center}
+    $E:y^2=x(x-1)(x-\lambda)$.
+\end{center}
+从而我们得到
+\begin{center}
+    $c_4=16(\lambda^2-\lambda+1),\Delta =16\lambda^2(\lambda-1)^2$.
+\end{center}
+下面我们设$\lambda\notin R$(其余结果是简单的),因K为局部域,从而存在整数t使得$\pi^{t}\lambda\in R^{*}$($\pi$为uniformizer),令$K^{\prime}=K(\sqrt{\pi})$,做坐标变换$x=\pi^{-t}x^{\prime}$$,y=\pi^{-3r/2}y^{\prime}$,得到
+\begin{center}
+    $(y^{\prime})^2=x^{\prime}(x^{\prime}-\pi^t)(x^{\prime}-\pi^t\lambda)$.
+\end{center}
+不难验证$\Delta\in\mathcal{M},\mathcal{M}$为极大理想.$c_4 \in R$,即在K上的约化半稳定.
+\end{proof}
+
+在前文命题\ref{4.1}中我们看到了在约化下的椭圆曲线上Torsion点表现,而下面定理将说明这些表现可以用来反应约化的性质.
+\begin{lem}[$Kodaira,N$é$ron$]设E/K为椭圆曲线,若E在K上的约化是分裂稳定的($\widetilde{E}$上奇点切线的斜率$l\in k^{*}$),则$E(K)/E_0(K)$为$\nu(\Delta)$阶循环群,一般的,商群$E(K)/E_0(K)$是有限的.
+    
+\end{lem}
+\begin{proof}
+    见\cite{ATEC}.
+\end{proof}
+\begin{thm}[$N$é$ron$-$Ogg$-$Shafarevich$判据]\label{4.5}设$E/K$为椭圆曲线,则下列条件等价
+
+    (a)E在K上的约化是好的.
+
+    (b)对于任意正整数m$,(m,char(k))=1$,E[m]在$\nu$处是非分岐的.
+
+    (c)对一些素数$\ell \neq char(k)$,Tate模$T_{\ell}(E)$在$\nu$处是非分岐的.
+
+    (d)对于无限(不必全部)个正整数m$,(m,char(k))=1$$,E[m]$在$\nu$是非处分岐的.
+\end{thm}
+\begin{proof}在命题\ref{4.1}我们已经证明了$(a)\Longrightarrow (b)$,而$(b)\Longrightarrow(c)\Longrightarrow(d)$是显然的;从而我们只需证明$(d)\Longrightarrow(a)$即可,选取m如\ref{4.5},且满足
+\begin{itemize}
+    \item m与char(k)互素.
+    \item $m>\# E(K^{nr})/E_0(K^{nr})$.
+    \item E[m]在$\nu$处非分岐.
+\end{itemize}
+不难验证,存在正合列：
+\begin{center}
+    $0\rightarrow E_0(K^{nr})\rightarrow E(K^{nr})\rightarrow E(K^{nr})/E_0(K^{nr})\rightarrow 0$,
+
+    $0\rightarrow E_1(K^{nr})\rightarrow E_0(K^{nr})\rightarrow ~~~~~~~\widetilde{E}(\overline{k})~~~~~~~\rightarrow 0$.
+\end{center}
+而因为$E[m]\subset E(K^{nr})$,从而$E(K^{nr})$有一个同构于$(\mathbb{Z}/m\mathbb{Z})^2$的子群,而由设定我们知道商群$E(K^{nr})/E_0(K^{nr})$的阶小于m.现在看第一个正合列,我们知道存在素数$\ell | m$使得 $E_0(K^{nr})$包含一个同构于$(\mathbb{Z}/ \ell \mathbb{Z})^2$
+的子群,而由第二个正合列我们又知道$ E_1(K^{nr})$没有非平凡的挠点,从而$\widetilde{E}(\overline{k})$含有一个同构于$(\mathbb{Z}/ \ell \mathbb{Z})^2$的子群.
+
+而若E在$K^{nr}$上的约化是坏的,若是半稳定的,我们有
+\begin{center}
+    $\widetilde{E}_{\textup{ns}}(\overline{k}) \cong \overline{k}^{*}$
+\end{center}
+但此时$\overline{k}$上的所有$\ell$次单位根同构于$\mathbb{Z}/ \ell \mathbb{Z}$,从而矛盾;而若是不稳定的,则
+\begin{center}
+    $\widetilde{E}_{\textup{ns}}(\overline{k}) \cong \overline{k}^{+}$
+\end{center}
+即$\widetilde{E}_{\textup{ns}}(\overline{k})$上没有$\ell$-挠点,矛盾;从而约化只能是好的.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{整体域上的椭圆曲线}
+在本章中我们要证明关于椭圆曲线最重要的定理之一
+\begin{thm}[Mordell--Weil]\label{mwt}
+    设$E/K$为椭圆曲线,则E(K)构成有限生成的阿贝尔群.
+
+
+
+
+
+\end{thm}
+
+我们将分两步来证明：在第一节,我们将证明商群$E(K)/mE(K)$是有限的,我们会给出两种证明；在第二节,我们将以有理数域的情形作为例子；第三节我们将介绍高度理论,并结合第一节中的结论证明Mordell--Weil定理；在最后一节,我们将展示Shafarevich群与Mordell--Weil定理的关系,并介绍一些BSD猜想的例子.
+
+\subsection{弱Mordell--Weil定理}
+我们本节的主要目的是为了证明以下定理
+\begin{thm}[弱Mordell--Weil].\label{wmt}设$K$为数域$,E/K$为椭圆曲线,m为大于$1$的正整数,则
+\begin{center}
+    $E(K)/mE(K)$
+\end{center}
+为有限群.
+\end{thm}
+定理\ref{wmt}的证明是不容易的,我们将会在以下两节中使用不同的方法证明此定理,在第一节中,我们会引入Kummer对来揭示域扩张与群有限性的深刻联系；在第二节,我们会引入Shafarevich群与Selmer群并刻画它们之间的关系, 此证明可以至推广至一般的Abel 簇上.
+\subsubsection{Kummer配对}
+
+在本节中,我们将使用Kummer配对来证明定理\ref{wmt},它揭示了椭圆曲线上的点与域扩张之间的密切联系.具体来说,我们将会证明椭圆曲线上的点在域扩张下的增长趋势不会太快,下面通过一条性质来引入我们需要使用的工具.
+
+\begin{pro}设$E/L$为椭圆曲线$,L/K$为数域间的Galois扩张.若$E(L)/mE(L)$有限,则$E(K)/mE(K)$是有限的.
+\end{pro}
+\begin{proof}因为K为L的子域,从而$E(K)$可以被嵌入到$E(L)$中.考虑商群,则存在映射$\phi$:
+\begin{center}
+    $\phi :E(K)/mE(K) \longrightarrow E(L)/mE(L)  $
+\end{center}
+考虑映射的核
+\begin{center}
+    $\Phi=\ker\phi=\frac{E(K)\cap mE(L) }{mE(K)}$.
+\end{center}
+则对于任意的$P \in \Phi$,我们可以选择$Q_P \in E(L)$满足$mQ_P=P$,定义映射
+\begin{center}
+    $\lambda_P:Gal(L/K)\rightarrow E[m],\lambda_P(\sigma)=Q_P^{\sigma}-Q_P$.
+\end{center}
+该映射是良定的,因为
+\begin{center}
+    $[m]Q_P^{\sigma}-Q_P=[m]Q_P^{\sigma}-[m]Q_P=P^{\sigma}-P=O$.
+\end{center}
+若存在$P^{\prime},P \in E(K) \cap mE(L)$使得$\lambda_{P^{\prime}}=\lambda_P$,则
+\begin{center}
+    $(Q_P-Q_{P^{\prime}})^{\sigma}=Q_P-Q_{P^{\prime}}$,任意$\sigma \in G_{L/K}$.
+\end{center}
+从而$Q_P-Q_{P^{\prime}} \in E(K)$,从而有
+\begin{center}
+    $P-P^{\prime}=[m]Q_P-[m]Q_{P^{\prime}}\in mE(K)$.
+\end{center}
+即$P\equiv P^{\prime}\mod mE(K)$,从而我们证明了
+\begin{center}
+    $\Phi \rightarrow Map(G_{L/K},E[m]),P \rightarrow \lambda_P$.
+\end{center}
+为单射,而$G_{L/K}$和E[m]均为有限的,从而$\Phi$为有限群.
+
+进一步,存在下列正合列
+\begin{center}
+    $0\rightarrow\Phi \rightarrow E(K)/mE(K) \rightarrow E(L)/mE(L)$.
+\end{center}
+从而$E(K)/mE(K)$为有限的.
+\end{proof}
+我们将上述的证明思路进行梳理,本质上是在说存在$Gal(\overline{K}/K)$-模正合列
+
+\begin{center}
+    $0 \rightarrow E[m]\rightarrow  E(\overline{K})\stackrel{[m]} {\rightarrow}  E(\overline{K})\rightarrow 0$
+\end{center}
+\noindent 从而其诱导长正合列($G=\Gal(\overline{K}/K)$).
+\begin{center}
+    \begin{tikzcd}
+        0 \rar & E(K)[m] \rar &  E(K)\rar
+                    \ar[draw=none]{d}[name=X, anchor=center]{}
+           &  E[K]\ar[rounded corners,
+                   to path={ -- ([xshift=4ex]\tikztostart.east)
+                             |- (X.center) \tikztonodes
+                             -| ([xshift=-4ex]\tikztotarget.west)
+                             -- (\tikztotarget)}]{dll}[at end]{\delta} \\      
+                             ~ & H^1(G,E[m])\rar & H^1(G,E(\overline{K})) \rar &  H^1(G,E(\overline{K}))
+       \end{tikzcd}
+     
+     
+     
+     
+\end{center}
+从而我们得到
+\begin{center}
+    $0\rightarrow\frac{E(K)}{mE(K)}\rightarrow H^1(G_{\overline{K}/K},E[m])\rightarrow H^1(G_{\overline{K}/K},E(\overline{K})[m])\rightarrow 0$.
+\end{center}
+而$E[m] \subset E(K)$时,有
+\begin{center}
+   $ H^1(G_{\overline{K}/K},E[m])=\Hom(G_{\overline{K}/K},E[m])$
+\end{center}
+其诱导单射
+\begin{center}
+    $E(K)/mE(K) \rightarrow \Hom(G_{\overline{K}/K},E[m]),P\mapsto (~·~,P)$.
+\end{center}
+
+\begin{rem}\label{wcg}$H^1(Gal(\overline{K}/K),E(K))$,通常被称为E(K)的第一个Galois上同调群；在某些书中被称作椭圆曲线的\textbf{Weil--Châtelet 群},记作\textup{WC}(E/K),在下一节中我们会知道这样称呼的原因.
+
+
+
+\end{rem}
+
+
+
+下面我们对上文提到的诱导映射进行描述,定义：
+\begin{defi}[Kummer配对]\label{KP}Kummer配对为双线性映射
+
+    \begin{center}
+        $\kappa:E(K)\times G_{\overline{K}/K} \rightarrow E[m]$.
+    \end{center}
+    对$P\in E(K)$,选取$Q\in E(\overline{K})$使得$[m]Q=P$(因为$[m]:E(K)\rightarrow E(K)$是满射),定义
+    \begin{center}
+        $\kappa(P,\sigma)=Q^{\sigma}-Q$.
+    \end{center}
+\end{defi}
+下面我们给出关于Kummer配对的几个性质,并利用其引出定理\ref{wmt}的证明.
+\begin{pro}\label{5.2}
+
+    (a)Kummer对是良定的.
+
+    (b)左侧映射的核为$mE(K)$.
+
+    (c)右侧映射的核为$G_{\overline{K}/L}$,其中
+     \begin{center}
+        $L=K([m]^{-1}E(K))$
+     \end{center}
+
+      为K添加所有$[m]^{-1}E(K)$中值得到的扩域.
+\end{pro}
+\begin{proof}(a)我们说明$\kappa(P,\sigma)\in E[m]$且不依赖于$Q$的选取
+\begin{center}
+   $ [m]\kappa(P,\sigma)=[m]Q^{\sigma}-[m]Q=P^{\sigma}-P=O$.
+\end{center}
+而任意$Q^{\prime}$都有$Q+T,T\in E[m]$的形式,而
+\begin{center}
+    $(Q+T)^{\sigma}-(Q+T)=Q^{\sigma}-Q+T^{\sigma}-T=Q^{\sigma}-Q$.
+\end{center}
+即不依赖于Q的选取.
+
+\noindent (b)设$P\in mE(K)$,满足$P=[m]Q$,Q被$\Gal(\overline{K/K})$固定,从而
+\begin{center}
+    $\kappa(P,\sigma)=Q^{\sigma}-Q=O$.
+\end{center}
+另一方面,若$\kappa(P,\sigma)=O$对$\sigma \in \Gal(\overline{K}/K)$,我们选择$Q\in E(\overline{K}),[m]Q=P$,我们有
+\begin{center}
+    $Q^{\sigma}=Q$$,\sigma \in \Gal(\overline{K}/K)$.
+\end{center}
+从而$Q\in E(K)$,即$P\in mE(K)$.
+
+
+(c)任意$\sigma \in \Gal(\overline{K}/L)$,我们有
+\begin{center}
+    $\kappa(P,\sigma)=Q^{\sigma}-Q=O$
+\end{center}
+另一方面,若$\kappa(P,\sigma)$对任意的$P \in E(K)$,则存在$Q\in E(\overline{K})$满足$[m]Q\in E(K)$且
+\begin{center}
+    $O=\kappa([m]Q,\sigma)=Q^{\sigma}-Q$.
+\end{center}
+而由于P跑遍所有$E(K)$,从而Q跑遍所有$m^{-1}E(K)$,即$\sigma$固定L.
+\end{proof}
+根据以上性质,我们知道Kummer对诱导了完备的双线性型
+\begin{center}
+    $E(K)/mE(K)\times \Gal(L/K)\rightarrow E[m]$
+\end{center}
+ 从而我们得到单射
+ \begin{center}
+    $E(K)/mE(K)\longmapsto \Hom(G_{L/K},E[m])$.
+ \end{center}
+且其中$E[m]$为有限群,因此商群$E(K)/mE(K)$的有限性就可以转化为伽罗华群$\Gal(L/K)$的有限性,因而便可转化为域扩张$L/K$的有限性；下面我们将描述该扩张的基本性质,并证明其有限性.
+
+\begin{pro}设\label{5.3}
+\begin{center}
+    $L=K([m]^{-1}E(K))$
+\end{center}
+如命题\ref{5.2}中所定义的那样,则
+
+(a)L/K为阶为m的Abel扩张,即伽罗华群$\Gal(L/K)$为Abel群且任意元素的阶为m.
+
+(b)设集合
+\begin{center}
+    $S=\{\nu \in M^0_K,E$在$\nu$处的约化是坏的$\}\cup \{\nu \in M^0_K,\nu(m)\neq 0\}\cup M_K^{\infty}$
+\end{center}
+则域扩张L/K在除集合S外是非分岐的；即对任意$\nu \in M^0_K\setminus  \{S\}$,L/K在$\nu$处是非分岐的.
+
+
+
+\end{pro}
+\begin{proof}(a)由命题\ref{5.2}我们知道,对于伽罗华群$G_{L/K}$有嵌入
+\begin{center}
+    $G_{L/K}\rightarrow \Hom(E(K),E[m]),\sigma \mapsto \kappa(~·~,\sigma)$.
+\end{center}
+从而其为abel群,且各元素阶均为m.
+
+\noindent (b)设$\nu \in M_{K}$满足$\nu \notin S$$,Q\in E(\overline{K})$满足$[m]Q\in E(K)$,令$K^{\prime}=K(Q)$,只需证明$K^{\prime}/K$在$\nu$处非分岐即可.令$\nu^{\prime}$为赋值$\nu$的延拓,因为$\nu \notin S$,即E在K上的约化是好的,从而在$K^{\prime}$上的约化亦是好的
+,记约化为
+\begin{center}
+    $E(K^{\prime})\rightarrow \widetilde{E}(k^{\prime}_{\nu^{\prime}})$.
+\end{center}
+记$I_{\nu^{\prime}/\nu}$为惯性群,从而任取$\sigma \in I_{\nu^{\prime}/\nu} $,我们有
+\begin{center}
+    $\widetilde{Q^{\sigma}-Q}=\widetilde{Q^{\sigma}}-\widetilde{Q}=\widetilde{O}$. 
+\end{center}
+另一方面,由$[m]Q \in E(K)$我们知道
+\begin{center}
+    $[m](Q^{\sigma}-Q)=([m]Q)^{\sigma}-[m]Q=O$.
+\end{center}
+从而$Q^{\sigma}-Q$的阶为m,但由命题\ref{4.1}我们知道$E[m]$被嵌入到$\widetilde{E}$中,从而
+\begin{center}
+    $Q^{\sigma}-Q=O$.
+\end{center}
+即Q被惯性群$I_{\nu^{\prime}/\nu}$固定,从而$K^{\prime}=K(Q)$在$\nu^{\prime}$处是非分岐的,而取遍$Q \in E(\overline{K})$,我们知道$L=K([m]^{-1}E(K))$在K上非分岐.
+\end{proof}
+
+我们已经描述了域扩张$L/K$的结构,下面我们将进一步描述其性质；特别的,我们将会证明其为有限扩张.
+
+\begin{thm}\label{5.4}设K为数域,赋值集合S包含所有阿基米德赋值且为有限集$,m\geq 2$为正整数；设L/K为阶为m的、在S外处处非分岐的极大阿贝尔扩张,则域扩张$L/K$为有限扩张.
+
+
+\end{thm}
+\begin{proof}我们定义$S$-整数环为
+\begin{center}
+    $R_{S}=\{a\in K:\nu(a)\geqslant 0$对任意的$\nu\in M_K,\nu \notin S\}$
+\end{center}
+此外,我们增大S使得$\nu(m)=0$对$\nu \notin S$,由Kummer理论我们知道,一个数域的极大阿贝尔扩张可以通过添加其元素的$m$-次单位根得到,因此$L$为
+\begin{center}
+    $K(\sqrt{a}:a\in K)$.
+\end{center}
+的最大子域,从而在S外是非分岐的.
+
+而对$\nu \in M_K$且$\nu\notin S$考虑方程
+\begin{center}
+    $X^m-a=0$
+\end{center}
+因为$\nu(m)=0$,而该方程的判别式为$\pm m^ma^{m-1}$,从而$K(\sqrt{a})/K$非分岐当且仅当
+\begin{center}
+    $ord_{\nu}(a)\equiv 0(mod~m)$
+\end{center}
+而添加m-次单位根,等价于只需添加$K^{*}/(K^{*})^{m}$中的代表元,我们令
+\begin{center}
+    $T_{S}=\{a\in K^{*}/(K^{*})^{m}:\Ord_{\nu}(a)\equiv 0(\mod ~m)$对任意的$\nu\in M_K\setminus S\}$.
+\end{center}
+从而
+\begin{center}
+    $L=K(\sqrt{a}:a\in T_S)$.
+\end{center}
+我们只需说明$T_S$为有限集即可,考虑映射
+\begin{center}
+    $\phi:R_S^{*}\rightarrow T_S$.
+\end{center}
+设$a\in K^{*}$为$T_S$中的代表元,从而理想$aR_S$为$R_S$中理想的m次幂,从而存在$b \in K^{*}$使得$aR_S=b^mR_S$,即存在$R_S$中单位u,使得
+\begin{center}
+    $a=ub^m$.
+\end{center}
+从而$\phi$为满射,其核包含$(R_S^{*})^m$,从而存在满射
+\begin{center}
+    $\widetilde{\phi}:R_S^{*}/(R_S^{*})^m\rightarrow T_S$
+\end{center}
+而定理\ref{Dirichlet}告诉我们,一个代数整数环的单位群同构于有限群直和上有限生成的自由abel群,因而为有限生成的；从而$R_S^{*}/(R_S^{*})^m$便是有限的
+\end{proof}
+结合上文我们便可给出定理\ref{wmt}的证明：
+\begin{proof}
+    \noindent 令
+    \begin{center}
+        $L=K([m]^{-1}E(K))$
+    \end{center}
+    
+    由$Kummer$配对的性质我们知道$,E(K)/mE(K)$为有限群当且仅当伽罗华群$\Gal(L/K)$是有限的(性质\ref{5.2})；而域扩张L/K为阶为m的、几乎处处非分岐的阿贝尔扩张(性质\ref{5.3})；因此其为有限扩张(定理\ref{5.4}),从而伽罗华群$\Gal(L/K)$为有限群,因此商群$E(K)/mE(K)$是有限的.       
+\end{proof}
+
+\subsubsection{齐性空间与Shafarevich群}
+本节的重要目的是为了从几何上理解$H^1(\Gal(\overline{K}/K),E(K))$(记作$H^1(G,E)$),首先根据我们的描述, $u\in H^1(G,E)$是一个 G 模同态$u:G \rightarrow E$满足链条件, 这样的链条件实际上对应一条曲线及E在其上的作用.
+\begin{defi}[(主)齐性空间]
+    设$E/K$ 椭圆曲线,其(主)齐性空间$(C,\mu)$是一条光滑曲线 $C/K$ 及 E在其上(作为代数群)的作用 $\mu: C\times E\to C$,
+    满足 
+    
+         $(1)\mu(p,O) = p,p\in C;$
+
+        $(2)\mu(\mu(p,P),Q) = \mu(p,P+Q),p\in C,P,Q\in E;$
+
+         $(3)p,q\in C$, 存在 $P\in E$, $\mu(p,P) = q.$
+
+    \end{defi} 
+运算 $\mu$ 相当于 $C$ 上点与 $E$ 做的加法,通常简记为 $\mu(p,P) = p+P$. 
+条件 (3) 通常记为 $\mu: C\times E \to C\times C, (p,P)\mapsto (p,p+P)$ 为双射,并且对 $\mu(p,P) = q$ 常记
+这个$q-p$为$\nu(q,p)$.
+
+此外,我们定义齐性空间之间的态射为曲线态射$\phi: C\rightarrow C^{\prime}$且与加法相容$\phi(p+P)=\phi(p)+  p$.而记所有齐性空间商去同构类的集合为WC$(E/K)$,我们将证明其有群结构,且同构于群$H^1(G,E)$.
+
+下面我们列举关于齐性空间的一些基本性质
+\begin{pro}令$C/K$为$E/K$的齐性空间,则对任意$p,q\in C$和$Q,P\in E$,我们有
+
+    $(a)\mu(p,O)=p,\nu(p,p)=O$.
+
+    $(b)\mu(p,\nu(q,p))=q,\nu(\mu(p,P),p)=P$.
+
+    $(c)\nu(\mu(q,Q),\mu(p,P))=\mu(q,p)+Q-P$.
+
+   \noindent 我们将上式用“加法”和“减法”改写,便得到了具象化的等式
+
+    $(a^{\prime})p+O=p,p-p=O$
+
+    $(b^{\prime})p+(q-p)=q,p+P-p=P$.
+
+    $(c^{\prime})(q+Q)-(P+p)=(q-p)+(Q-P)$.
+
+
+
+\end{pro}
+下面我们将看到齐性空间C/K实际上是E/K的一个\textbf{旋子(twist)},这样也就说明了WC$(E/K)$与$\Hom^1(G,E(K))$的等价性.
+
+
+
+\begin{pro}设E/K为椭圆曲线$,C/K$为E上的齐性空间,则我们固定$\p_0 \in C$,定义映射
+\begin{center}
+    $\theta :E\mapsto C,\theta(P)=p_0+P$.
+\end{center}
+
+(a)映射$\theta$为$K(p_0)$上的同构,特别的$,C/K$是E/K的旋子.
+
+(b)对任意的$p \in C$和$P\in E$.
+\begin{center}
+    $p+P=\theta (\theta^{-1}(p)+P )$.
+\end{center}
+
+(c)对任意的$q,p\in C$
+\begin{center}
+    $q-p=\theta^{-1}(q) -\theta^{-1}(p) $.
+\end{center}
+
+(d)C上的减法映射
+\begin{center}
+    $\nu:C\times C \rightarrow E,\nu(q,p)=q-p$
+\end{center}
+
+为K上的态射(对代数曲线).
+
+
+
+
+\end{pro}
+
+\begin{rem}而由以上事实,一个推论是$,C(K)$非空当且仅当$C/K$与$E/K$同构:
+\end{rem}
+\begin{proof}
+充分性是平凡的,此时的$\theta$即为同构映射；而对于必要性,固定$p_0 \in C(K)$,则有同构
+\begin{center}
+    $\theta : E \rightarrow C$$,\theta(P)=P+p_0$.
+\end{center}
+从而$\theta$为$K(p_0)$上的同构,而$\theta$的兼容性满足
+\begin{center}
+    $p_0+(P+Q)=(p_0+P)+Q$
+\end{center}
+这就满足齐性空间的定义,从而$C(K)$非空.
+\end{proof}
+
+上述定理给出了我们一个重要方法：判断给定曲线是否有$K-$有理点的丢番图问题可以通过检验齐次空间来确定
+.因此,我们想要确定$WC(E/K)$与上同调群$H^1(G,E(K))$的关系,从而帮助我们研究较为困难的丢番图问题.
+\begin{thm}设$E/K$为椭圆曲线,则映射
+    \begin{center}
+        $\{C/K\}\mapsto \{\sigma \mapsto p_0^{\sigma}-p_0\}$,其中$p_0 \in C$为任意一点.
+    \end{center}
+    为等价类之间的同构.
+\end{thm}
+\noindent 证明 ：首先验证良定性,对$\sigma \mapsto p_0^{\sigma}-p_0$,满足上闭链条件：
+\begin{center}
+    $p_0^{\sigma\tau}-p_0=(p_0^{\sigma\tau}-p_0^{\tau})+(p_0^{\tau}-p_0)=(p_0^{\sigma}-p_0)^{\tau}+(p_0^{\tau}-p_0)$.
+\end{center}
+现在假设$C^{\prime}/K$为等价于$C/K$的另一个齐性空间$,\theta:C\mapsto C^{\prime}$为给出的K-同构,设$p_0^{\prime}\in C^{\prime}$,我们计算
+\begin{center}
+    $p_0^{\sigma}-p_0=\theta(p_0^{\sigma})-\theta(p_0)=(p_0^{\prime\sigma}-p_0^{\prime})+((\theta(p_0)-p_0^{\prime})^{\sigma}-(\theta(p_0)-p_0^{\prime}))$.
+\end{center}
+从而上闭链$p_0^{\sigma}-p_0$和$p_0^{\prime\sigma}-p_0^{\prime}$相差一个由$\theta(p_0)-p_0^{\prime} \in E$生成的上边缘,故而其在$H^1(G,E(K))$中属于相同的上同调类.
+
+下面验证其为单射.设上闭链$p_0^{\sigma}-p_0$和$p_0^{\prime\sigma}-p_0^{\prime}$对应的齐性空间为$C^{\prime}/K$$,C/K$,则存在$P_0\in E$满足
+\begin{center}
+    $p_0^{\sigma}-p_0=p_0^{\prime\sigma}-p_0^{\prime}+P_0^{\sigma}-P_0$.对任意的$\sigma \in Gal(\overline{K}/K)$.
+\end{center}
+考虑映射
+\begin{center}
+    $\theta:C\mapsto C^{\prime}$$,\theta(p)=p_0^{\prime}+(p-p_0)+P_0$
+\end{center}
+为$\overline{K}$-同构且对于E在$C$与$C^{\prime}$上的作用是相容的,我们下面证明其实质为$K$-同构
+\begin{center}
+    $\theta(p)^{\sigma}=p^{\prime\sigma}+(p^{\sigma}-p_0^{\sigma})+P_0^{\sigma}$
+\end{center}
+\begin{center}
+       $ =p_0^{\prime}+(p^{\sigma}-p_0)+P_0+((p_0^{\prime\sigma}-p_0^{\prime}+P_0^{\sigma}-P_0-(p_0^{\sigma}-p_0)))=\theta(p^{\sigma})$.
+\end{center}
+即$C$与$C^{\prime}$是等价的.
+
+最后我们证明满射即可.设$\xi :G(\overline{K}/K)\mapsto E$为$H^1(G,E(K))$中的1-上闭链,我们将E嵌入Isom(E)中(对每一个$P\in E$对应到$\tau_P$),从而$\xi$可以被看成上同调集$H^1(G,\textup{Isom}(E))$中的元素,从而存在曲线$C/K$和$\overline{K}$同构$\phi:C \rightarrow E$使得对任意$\sigma\in G(\overline{K}/K)$,有
+\begin{center}
+    $\phi(\sigma)=\phi^{\sigma}\circ \phi^{-1}$
+\end{center}
+定义映射
+\begin{center}
+    $\mu:C \times E \rightarrow C$$,\mu(p,P)=\phi^{-1}(\phi(p)+P)$.
+\end{center}
+从而$\mu$就给出了$C/K$的齐性空间结构.
+
+\hfill $\square$
+
+
+下面我们将要指出,对于$C/K$为$E/K$的齐性空间,那么其$Picard$群$\Pic^{0}(C)$可以嵌入到$E$中.
+\begin{thm}设$C/K$为椭圆曲线$E/K$的齐性空间,取任意$p_0\in C$,考虑映射
+    \begin{center}
+        $\phi:\Div^{0}(C)\mapsto E$$,\sum n_i(p_i)\mapsto \sum [n_i](p_i-p_0)$.
+    \end{center}
+
+    $(a)$存在正合列
+     \begin{center}
+        $1\rightarrow \overline{K}^{*}\rightarrow \overline{K}(C)^{*}~ \overset{\textup{div}}{\rightarrow} ~\Div^{0}(C)\rightarrow E \rightarrow 0$.
+     \end{center}
+
+
+     $(b)\phi$保持 Galois 群作用,于是 
+     \begin{center}
+        $i:\Pic^0_K(C) \cong  E(K)$
+     \end{center}
+
+     $(c)$嵌入$i$不依赖于$p_0$的选取.
+
+\end{thm}
+\begin{rem}由以上我们知道,若$C/K$为椭圆曲线$E/K$的齐性空间,则其$Picard$群$\Pic^0(C)$可以被满射嵌入到$E$中,这就是曲线$C$的\textbf{Jacobian簇(Jacobian variety)}.事实上,任意亏格$1$的曲线都是一些椭圆曲线的齐性空间,这说明此时抽象群$\Pic^{0}(C)$总可以被我们具体识别为一条椭圆曲线上的点.对于亏格g严格大于1的情形$,\Pic^{0}(X)$可以被维数等于$g$的\textbf{阿贝尔簇(Abelian variety)}所表示(\cite{GTM201}).
+
+\end{rem}
+
+在上述我们考虑了对$H^1(G,E(K))$的不同理解,下面我们转而考虑其具体计算：
+
+设$E/K,E^{\prime}/K$为椭圆曲线$,\phi:E \rightarrow E^{\prime}$为K上的同源映射,则存在正合列
+\begin{center}
+    $0\rightarrow E[\phi]\rightarrow E \rightarrow E^{\prime} \rightarrow 0$
+\end{center}
+其诱导长正合列
+\begin{center}
+    \begin{tikzcd}
+        0 \rar & E[\phi] \rar &  E(K)\rar
+                    \ar[draw=none]{d}[name=X, anchor=center]{}
+           &  E^{\prime}(K)\ar[rounded corners,
+                   to path={ -- ([xshift=4ex]\tikztostart.east)
+                             |- (X.center) \tikztonodes
+                             -| ([xshift=-4ex]\tikztotarget.west)
+                             -- (\tikztotarget)}]{dll}[at end]{\delta} \\      
+                             ~ & H^1(G,E[\phi])\rar & H^1(G,E)) \rar &  H^1(G,E^{\prime})
+       \end{tikzcd}
+     
+     
+     
+     
+\end{center}
+从而存在如下正合列
+\begin{center}
+    $0\overset{\delta}{\rightarrow}E^{\prime}(K)/\phi(E(K))\rightarrow H^1(G,E[\phi]) \rightarrow H^1(G,E)[\phi]\rightarrow0 $.
+\end{center}
+
+
+我们想要将其中的第二和第三个群确定为有限群,在这里局部整体原理将发挥威力.对于非阿基米德赋值$\nu$考虑如上的正合列,当我们固定嵌入$K \hookrightarrow K_{\nu}$时,分解群$G_{\nu}\subseteq Gal_{\overline{K}/K}$,那么$E(\overline{K})\subset E(\overline{K}_{\nu})$给出交换图：
+\begin{center}
+    \begin{tikzcd}
+        {0} & {E^{\prime}(K)}/{\phi E(K)} & H^1(G,E[\phi]) & {WC(E/K)[\phi]} &{ 0} \\
+        0 & {\prod\limits_{v\in M_K}E(K_v)/\phi E(K_v)} & {\prod\limits_{v\in M_K} H^1(G_v,E[\phi])} & {\prod\limits_{v\in M_K} WC(E/K_v)[\phi]} & 0 \\
+        \arrow[from=1-1, to=1-2]
+        \arrow[from=1-3, to=1-4]
+        \arrow[from=1-4, to=1-5]
+        \arrow[from=2-1, to=2-2]
+        \arrow["\delta", from=2-2, to=2-3]
+        \arrow[from=2-3, to=2-4]
+        \arrow[from=2-4, to=2-5]
+        \arrow[from=1-4, to=2-4]
+        \arrow[from=1-2, to=2-2]
+        \arrow[from=1-3, to=2-3]
+        \arrow["\delta", from=1-2, to=1-3]
+
+    \end{tikzcd}
+      
+\end{center}
+我们想要计算$E(K)/\phi E(K)$的像,换言之,计算映射
+\begin{center}
+    $H^1(G,E[\phi]) \rightarrow WC(E/K)[\phi]$
+\end{center}
+的核,但这等价于判断主齐性空间中是否有$K$-点.但另一方面,由局部整体原则,我们知道该核与所有赋值处
+\begin{center}
+    $H^1(G_{\nu},E[\phi]) \rightarrow WC(E/K_{\nu})[\phi]$
+\end{center}
+的核拼起来是差不多的,这启发我们定义:
+\begin{defi}设$\phi:E/K \rightarrow E^{\prime}/K$为同源映射,我们定义
+
+    (a)椭圆曲线E/K的\textbf{$\phi$-Selmer群}为
+\begin{center}
+    $S^{(\phi)}=\ker\{H^1(G,E[\phi]) \rightarrow \prod\limits_{\nu \in M_K}WC(E/K_{\nu})\}$
+\end{center}
+
+    (b)\textbf{Tate--Shafarevich群}为
+      \begin{center}
+       \textup{Ш}$(E/K)=\ker\{WC(E/K)\rightarrow \prod\limits_{\nu \in M_K}WC(E/K_{\nu}) \}$
+      \end{center}
+
+
+\end{defi}
+\noindent 于是我们有正合列
+\begin{center}
+    $(\ast )0\rightarrow E^{\prime}(K)/\phi(E(K))\rightarrow S^{(\phi)}(E/K)\rightarrow $Ш$(E/K)[\phi] $
+\end{center}
+
+从齐性空间的角度$,C\in$Ш$(E/K)$意味着$C(K_{\nu})$非空(因为齐性空间平凡即有点), 于是其中非平凡曲线就是不满足局部-整体原则的那些(这与Brauer--Manin障碍有关\cite{CTM 144})
+
+最后我们来说明$S^{(\phi)}$的有限性,而上同调群$H^1(G,E(K))$可以被嵌入其中,从而有限
+\begin{thm}椭圆曲线E/K的Selmer群$S^{(\phi)}(E/K)$为有限群.
+\end{thm}
+
+
+\begin{proof}
+(1) $S^({\phi})(E/K)$ 在 
+\begin{center}
+    
+    $S =M_K^{\infty}\cup  \{v|$ E在$\nu$处有坏约化 $\} \cup\{ v\mid v(\Deg\phi) \ne 0\} $ 
+    
+\end{center}外非分歧.
+
+取$v\notin S$, $\xi\in S^{\phi}(E/K)$ 对应齐性空间$C$, 则由定义 $C(K_v)\neq 0$. 于是由正合列$\ast$ ,
+存在$ P\in E(K_{\nu})[\phi]$, $\xi(g) = P^g - P, g\in G_v$. 
+此时 $E\rightarrow \widetilde{E_v}$ 有好约化,所以 
+$ \widetilde{P^g- P} = \widetilde{P}^g - \widetilde{P} = \widetilde{O} $$,g\in I_{\nu}$
+又因为 $P^g-P\in E[\phi]\subset E[m] \hookrightarrow \widetilde{E}_v $, 于是 $P^g = P$, 即 $\xi(g) = O$  
+
+\noindent (2) $H^1(G,M)$在所有$S$外处分歧的子集有限,即
+\begin{center}
+    $H^1(G,M;S) = \{\xi\in H^1(G,M)\mid \xi$ 在S外非分岐$, \} $
+\end{center}
+有限.
+
+由膨胀-限制正合列,不妨设 $G$ 在 $M$ 上平凡作用.
+再设 $M$ 的阶为 $m$, 那么 域扩张$L/K$ 的为指数 $m,S$ 外非分歧的极大 Abel 扩张,上一节已经证明 $L/K$ 有限,且
+\begin{center}
+   $ H^1(G,M;S) = \Hom(G,M;S) \simeq \Hom(Gal_{L/K},M;S)$
+\end{center}
+故 $ H^1(G,M;S)$ 有限,从而$S^{\phi}(E/K) \subset H^1(G,E[\phi];S)$有限.
+\end{proof}
+
+
+\subsection{有理数域上的Mordell--Weil定理}
+
+
+本节中我们将要证明定义在有理数域上椭圆曲线的Mordell定理:$E(\mathbb{Q})$为有限生成的Abel群.
+
+\begin{proof}
+
+若$P\in E(\mathbb{Q})$是非平凡解($y\neq 0$),则存在无平方因子的整数$d_1,d_2,d_3$,使得$x-a_i=d_iu_i^2,u_i\in\mathbb{Q}^{\times }$,且$d_1d_2d_3\in \mathbb{Q}^{\times }$,由此我们得到了四个等式,从中消去$x$,我们有：
+$a_i-a_j+d_iu_i^2-d_ju_j^2=0$,其次化后,我们得到：
+
+
+\begin{center}
+    $ \begin{cases}
+        (a_1-a_2)t^2+d_1u_1^2-d_2u_2^2=0\\
+            (a_2-a_3)t^2+d_2u_2^2-d_3u_3^2=0\\
+            (a_3-a_1)t^2+d_1u_1^2-d_1u_1^2=0\\
+            
+    \end{cases}$
+
+\end{center}
+  
+\noindent
+由此,我们得到了一个映射:
+
+$\varphi :E(\mathbb{Q})\rightarrow T=\{(d_1,d_2,d_3)|d_i\in \mathbb{Q}^{\times }/\mathbb{Q}^{\times 2},d_1d_2d_2\in\mathbb{Q}^{\times}\}$
+
+\noindent
+接下来,我们通过三个部分来得到想要的结论:
+
+(1)T为群,进而$\varphi$是从$E(\mathbb{Q})$到群T间的群同态.
+
+(2)该群同态的核为$2E(\mathbb{Q})$.
+
+(3)设G为$a-b,b-c,c-a$的分子或分母的素因子以及-1生成的$\mathbb{Q}^{\times 2}$子群,显然其为有限群.于是$,\varphi$的像包含在$G\times G\times G$中,进而有限.
+
+
+事实上,我们可以写出该映射的形式(记$\mathcal{O}$为无穷远点)：
+
+\begin{eqnarray}
+    \varphi(P)=
+    \begin{cases}
+       (\overline{x-a},\overline{x-b},\overline{x-c})&P \neq \mathcal{O},(a,0),(b,0),(c,0) \\
+        ((\overline{a-b})(\overline{a-c}),\overline{a-b},\overline{a-c}) &P= (a, 0)\\
+        (\overline{b-a},(\overline{b-a})(\overline{b-c}),\overline{b-c}) &P= (b, 0)\\
+        (\overline{c-a},\overline{c-b},(\overline{c-a})(\overline{c-b})) &P= (c, 0)\\
+        (1,1,1) &P=\mathcal{O}\\
+    \end{cases}
+\end{eqnarray}
+
+(1)现在来证明$\varphi$第一个分量 $E(\mathbb{Q})\rightarrow\mathbb{Q}^{\times }/\mathbb{Q}^{\times 2}$为同态(对第二, 第三个分量的证明相同).
+设$ P, Q \in E(\mathbb{Q})$, 并设$ P, Q, P +Q$ 不是$ \mathcal{O}$ 或 $(a, 0)$.令 $P$
+的坐标为$ (x_1, y_1)$,  $Q$ 的坐标为 $(x_2, y_2)$, $P + Q$ 的坐标为 $(x_3, y_3)$. 我们只需证明
+$(x_1 - a)(x_2 - a)(x_3 - a) \in \mathbb{Q}^{\times 2}$,因为在商群 $\mathbb{Q}^{\times }/\mathbb{Q}^{\times 2}$中$ (x_3 - a) $与$ (x_1 - a)(x_2 - a) $相同.
+
+\noindent
+设连接 P 与 Q 的直线方程为 $y = \lambda x + \mu$, 则
+\begin{center}
+    $(x - a)(x -b)(x - c) - (\lambda a + \mu)^2= 0$
+\end{center}
+
+
+\noindent
+为求出连接$P,Q$的直线与椭圆曲线交点的方程. 因此,
+\begin{center}
+$(x - a)(x - b)(x- c) - (\lambda a + \mu)^2 = (x - x_1)(x - x_2)(x - x_3)$.
+\end{center}
+
+\noindent
+在这里令 $x = a$ 则有
+\begin{center}
+$(x_1 - a)(x_2 - a)(x_3 - a) = (\lambda a + \mu)^2 \in \mathbb{Q}^{\times 2}$. 
+\end{center}
+
+(2)在证明之前首先给出一个引理：
+
+
+\begin{lem}
+
+设 K 为特征不为 $2 $的域, 取 $a, b, c$ 为 K 中不同的元, 令集合 $B, C, \widetilde{C}$
+为
+
+\begin{center}
+
+$B = \{(u, v, w) \in K \times K \times  K\mid u^2 + a = v^2 + b = w^2 + c\}$,
+
+$\widetilde{C}=\{{(x, y)\in K \times K\mid y^2 = (x-a)(x-b)(x-c)}\}$,
+
+$C=\{{(x, y)\in K \times K \mid y^2 = (x-a)(x-b)(x-c),y\neq 0}\}$
+
+$=\widetilde{C}-{(a,0),(b,0),(c,0)}$,
+
+\end{center}
+  
+
+\noindent
+于是
+
+(1)存在互逆的映射$f:B \rightarrow C ,g:C \rightarrow B:$
+
+\begin{center}
+    $f(u, v, w) = (u^2 + a + uv + vw + wu,(u + v)(v + w)(w + u))$
+
+    $g(x, y) = (\frac{1}{2y}((x - a)^2- (b -a)(c -a)),\frac{1}{2y}((x - b)^2- (a - b)(c - b)),\frac{1}{2y}((x - c)^2- (a - c)(b - c)))$
+\end{center}
+
+(2)存在映射
+
+\begin{center}
+    
+    $h:B\rightarrow \widetilde{C}: h(u, v, w) = (u^2 + a, uvw).$
+\end{center}
+
+\end{lem}
+
+对于引理5.1(2)中复合映射$ h\circ g : C \rightarrow \widetilde{C} $被称为椭圆曲线 $y^2 = (x-a)(x-b)(x-c)$ 的 2 倍映射这个 $ h\circ g$ 的像 (因 g 为一一的, 故与 h的像一致), 
+由 h 的定义便能明白, 与下列集
+\begin{center}
+   $ \{(x, y) \in K \times K | y^2 = (x-a)(x-b)(x-c), x-a, x-b, x-c$ 都是 K 中的平方元$\}$
+\end{center}
+
+\noindent
+
+相同,故映射的核也相同,容易验证该复合映射的核为$2E(\mathbb{Q})$,所以我们所定义的映射亦如此.
+
+(3)反证法,若素数$p$不是$a-b,b-c,c-a$中任何一个分子分母的素因子,对于$ y^2 = (x-a)(x-b)(x-c)$的有理数解$(x,y)$,只需$\Ord_p(x-a),\Ord_p(x-b),\Ord_p(x-c)$均为偶数即可,而：
+
+\begin{center}
+    $\Ord_p(x-a)+\Ord_p(x-b)+\Ord_p(x-c)=\Ord_p(y^2)=2\Ord_p(y)$
+\end{center}
+
+\noindent 为偶数,假设$\Ord_p(x-a),\Ord_p(x-b),\Ord_p(x-c)$中有一个为负数,因为$x-a,x-b,x-c$中任意两个差的$\Ord_p$都是0,从而$ord_p(x-a)=\Ord_p(x-b)=\Ord_p(x-c)$,从而$\Ord_p(x-a),\Ord_p(x-b),\Ord_p(x-c)$均为偶数.
+而如果$\Ord_p(x-a),\Ord_p(x-b),\Ord_p(x-c)$其中有一个为正数,而$x-a,x-b,x-c$中任意两个差的$\Ord_p$都是0,从而$\Ord_p(x-a),\Ord_p(x-b),\Ord_p(x-c)$均为0.综上$,\Ord_p(x-a),\Ord_p(x-b),\Ord_p(x-c)$全为偶数.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\noindent
+因此,由同态定理,我们有$E(\mathbb{Q})/2E(\mathbb{Q})\hookrightarrow G\times G\times G$,从而$\# E(\mathbb{Q})/2E(\mathbb{Q})\leqslant |G|^3<\infty$,即定理2.1成立.
+
+下面我们定义有理数域上椭圆曲线的高度
+
+\begin{defi}[Weil高度]\label{Naive Height}
+我们定义椭圆曲线$E/\mathbb{Q}$：$y^2=x^3+Ax+B$上的自然高度:
+
+$\bullet P=\mathcal{O}$.令$H(P)=1$;
+
+$\bullet P\neq \mathcal{O}$.设$x(P)=m/n$,gcd(m,n)=$1$,定义：
+
+\begin{center}
+    $H(P):=\Max\{|m|,|n|\}$
+\end{center}
+
+\end{defi}
+
+可以验证我们定义的自然高度具有如下性质：
+
+\begin{pro}[Weil高度]
+$1.$(有限性)对于任意的正实数C,
+\begin{center}
+        $\{P\in E(\mathbb{Q})~|~H(P)\leqslant C\}$
+\end{center}
+为有限集合.
+    
+$2.$(加法)设$Q \in E(\mathbb{Q})$,则存在$C_Q\in \mathbb{Q}$使得:
+
+\begin{center}
+    $H(P+Q)\leqslant C_QH(P)^2$ ,~~$\forall P \in E(\mathbb{Q})$.
+\end{center}
+
+$3.$(数乘)存在$C_2\in \mathbb{Q}$使得：
+\begin{center}
+    $H(P)^4 \leqslant C_2H(2P)$,~~$\forall P \in E(\mathbb{Q})$.
+\end{center}
+
+\end{pro}
+
+\begin{proof}
+(1)平凡的
+
+(2)记$H(P)=\Max\{|m|,|n|\},P(x_0,y_0),Q(x,y)$,我们有：
+\begin{center}
+   $ x(P+Q)=(\frac{y-y_0}{x-x_0})^2 -x-x_0 =\frac{(xx_0+a)(x+x_0)+2b-2yy_0}{(x-x_0)^2} $
+\end{center}
+
+\noindent
+因为椭圆曲线$E/Q:y^2 = (x-a)(x-b)(x-c)$,其有理解一定可以写成
+\begin{center}
+    $x=\frac{p}{d^2},y=\frac{q}{d^3}$,gcd(p,q,d)=1
+\end{center}
+\noindent
+带入得：
+\begin{center}
+    $x(P+Q)=\frac{(pp_0+ad^2d_0^2)(pd_0^2+p_0d^2)+2bd^4d_0^4-2qq_0dd_0}{(pd_0^2-p_0d^2)^2}$
+\end{center}
+
+\noindent
+于是就有：
+
+\begin{center}
+    $H(P+Q)\leqslant C \Max \{|p|^2,|d|^4,|qd|\}$
+\end{center}
+
+\noindent
+由于$q^2=p^3+apd^4+bd^6,|q|\leqslant C^{\prime}\Max\{|p|^{\frac{3}{2}},|d|^3\}$,结合上式,便有：
+
+\begin{center}
+    $H(P+Q)\leqslant C_Q H(P)^2$
+\end{center}
+
+(3)的证明与(2)相似。
+\end{proof}
+
+
+有了之前两部分的内容,我们便可以给出定理2.1的证明：
+
+\begin{thm}[无穷递降]\label{Descent}
+    设椭圆曲线$E/Q$满足$ \ref{Naive Height} $ 且$E(\mathbb{Q})/2E(\mathbb{Q})$是有限群,则$E(\mathbb{Q})$为有限生成的Abel群.
+\end{thm}
+\noindent
+证明：为了方便,我们定义$h(P)=\Log H(P)$,重新叙述命题\ref{Naive Height}:
+\begin{pro}[高度]\label{Height}$(1).$对于任意的正实数C,
+\begin{center}
+        $\{P\in E(\mathbb{Q})~|~h(P)\leqslant C\}$
+\end{center}
+
+为有限集合
+    
+$(2).$设$Q \in E(\mathbb{Q})$,则存在$C_Q\in \mathbb{Q}$使得:
+
+\begin{center}
+    $h(P+Q)\leqslant C_Q+2h(P)$ ,~~$\forall P \in E(\mathbb{Q})$.
+\end{center}
+
+$(3).$存在$C_2\in \mathbb{Q}$使得：
+\begin{center}
+    $4h(P) \leqslant C_2+h(2P)$,~~$\forall P \in E(\mathbb{Q})$.
+\end{center}
+\end{pro}
+\begin{proof}
+设$Q_1,Q_2,...,Q_k$为$E(\mathbb{Q})/2E(\mathbb{Q})$的代表元集$,C_{Q_1},C_{Q_2}...C_{Q_k}$为(2)中所对应的系数,令$M=\sum_{i=1}^{k}C_{Q_i} +C_2 $,因为M有限,所以：
+
+\begin{center}
+    $S:= \{P\in E(\mathbb{Q})~|~h(P)\leqslant M\} \bigcup \{Q_i\}_{i=1}^{k}$
+\end{center}
+\noindent
+是有限集,事实上,该集合即为$E(\mathbb{Q})$的生成元集合.下面采用反证法：
+
+若不然,取不能被$S$所生成的集合中高度最小的点$P_0\in E(\mathbb{Q})$,故存在$Q_j,R\in E(\mathbb{Q})$,使得：
+\begin{center}
+   $ P_0-Q_j=2R$
+\end{center}
+故R必不能被$S$所生成,由高度最小性我们知道$h(P_0)\leqslant h(R)$,而由(3)我们知道：
+\begin{center}
+$\begin{array}{cl}
+    h(R)&\leqslant\frac{1}{4}(C_2+h(P_0-Q_j))\\
+
+   &\leqslant\frac{1}{4}(C_2+C_{Q_j}+2h(P_0))\\
+
+    &\leqslant\frac{1}{4}(M+2h(P_0))\\
+
+    &\leqslant\frac{1}{4}(M+2h(R))
+\end{array}$
+\end{center}
+\noindent
+这样我们得到$h(R)\leqslant\frac{1}{2}M$,从而$R\in S$,矛盾!
+  
+于是$,E(\mathbb{Q})$便可以被有限集$S$所生成,从而构成有限生成Abel群.
+\end{proof}
+
+\subsection{高度理论}
+在上一节中我们看到了$\mathbb{Q}$上的高度,本节中我们将研究一般射影空间上的高度,并给出一般数域上椭圆曲线的无穷递降;最后我们将介绍Weil的\textbf{高度机器(Height Machine)},其说明任意非异簇上均存在高度.
+\begin{defi}设$P\in \mathbb{P}^N(K)$为射影空间中的一点,其齐次坐标为
+    \begin{center}
+        $P=[x_0:,\cdots,x_N],x_0,...x_N \in K$.
+    \end{center}
+定义其对于K的高度为
+\begin{center}
+    $H_K(P)=\prod\limits_{\nu \in M_K}\Max\{|x_0|_{\nu},...,|x_N|_{\nu}\}^{n_{\nu}} $$,n_{\nu}=[K_{\nu}:\mathbb{Q}_{\nu}]$.
+\end{center}
+
+\end{defi}
+我们立即可以得到一些简单的性质
+\begin{pro}设$P\in \mathbb{P}^N(K)$,我们有
+
+    (a)高度$H_K(P)$不依赖于齐次坐标的选取.
+
+    (b)射影空间中点的高度大于等于$1$
+    \begin{center}
+        $H_K(P)\geq 1$  
+    \end{center}
+    
+    (c)设$L/K$为数域的有限扩张,则
+     \begin{center}
+        $H_L(P)=H_K(P)^{[L:K]}$.
+     \end{center}
+
+\end{pro}
+\noindent 证明：(a)取P的任意齐次坐标$[\lambda x_0,...,\lambda x_N]$$,\lambda \in K^{*}$,我们有乘积公式
+\begin{center}
+    $\prod\limits_{\nu \in M_K}\Max\{|\lambda x_0|_{\nu},...|\lambda x_N|_{\nu}\}^{n_{\nu}} = \prod\limits_{\nu \in M_K} |\lambda|_{\nu}^{n_{\nu}}\Max\{|x_0|_{\nu},...|x_N|_{\nu}\}^{n_{\nu}}$.
+
+    $~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=\prod\limits_{\nu \in M_K}\Max\{|x_0|_{\nu},...|x_N|_{\nu}\}^{n_{\nu}}$.
+\end{center}
+
+\noindent (b)对于任意给定的点P,我们总可以将其其中一个其次坐标分量作为1,从而$H_K(P)$至少为1.
+
+\noindent (c)计算
+\begin{center}
+$\begin{array}{cl}
+    H_L(P)&=\prod\limits_{\omega \in M_L}\Max\{|x_i|_{\omega}\}^{\nu_{\omega}} \\
+    
+    &=\prod\limits_{\nu \in M_K}\prod\limits_{\omega | \nu}\Max\{|x_i|_{\nu}\}^{\nu_{\omega}}\\
+    
+    &=\prod\limits_{\nu \in M_K}\Max\{|x_i|_{\nu}\}^{[L:K]n_{\nu}}\\
+    
+    &=H_K(P)^{[L:K]}.  
+\end{array}$
+\end{center}
+ 
+上面的定义展示了我们定义的初衷,但不好的一点是它依赖于数域$K$的选取,我们希望做出一点修改：我们将去除那个因域扩张而变化的幂次；因此,我们定义射影空间中的绝对高
+\begin{defi}\label{aht}设$P \in \mathbb{P}^N(K)$为射影空间中的一点,我们定义其绝对高为
+    \begin{center}
+       $ H(P)=H_K(P)^{1/[K:\mathbb{Q}]}$.
+    \end{center}
+\end{defi}
+并且对于此,我们发现,其确实满足一些如上一节我们所叙述的性质
+\begin{pro}\label{5.9}
+
+    (a)设$F:P^N\rightarrow P^M$为d次态射,则存在依赖于F的正系数$C_1,C_2$,使得
+     \begin{center}
+        $C_1H(P)^d\leqslant H(F(P))\leqslant C_2H(P)^d$,对任意$P \in P^N(\overline{\mathbb{Q}})$.
+     \end{center}
+
+    \noindent (b)设$C,d$为常数,则下列集合
+    \begin{center}
+        $\{P \in P^N(\overline{\mathbb{Q}}):H(P)\leqslant C$且$[\mathbb{Q}(P):\mathbb{Q}]\leqslant d\}$
+
+    \end{center}
+     为有限集,特别的
+     \begin{center}
+        $\{P \in \mathbb{P}^N(K):H_K(P)\leqslant C\}$.
+     \end{center}
+    为有限集.
+\end{pro}
+\begin{proof}
+(a)设$F=[f_0,...,f_M],f_i$无公共零点$,P=[x_0,...,x_N]\in \mathbb{P}^N(K)(\overline{\mathbb{Q}})$,设数域K包含P的所有坐标和$f_i$的所有系数,则对任意赋值$\nu \in M_K$,我们有
+\begin{center}
+    $|P|_{\nu}=\Max |x_i|_{\nu},|F(P)|_{\nu}=\Max|f_j(P)|_{\nu}$.
+\end{center}
+从而我们定义
+\begin{center}
+    $|F|_{\nu}=\Max\{|a_i|_{\nu},a_i$为$f_i$的系数$\}$.
+\end{center}
+在高度的定义中,我们有
+\begin{center}
+   $ H_K(P)=\prod\limits_{\nu \in M_K}|P|_{\nu}^{n_{\nu}},H_K(F(P))=\prod\limits_{\nu \in M_K}|F(P)|_{\nu}^{n_{\nu}}$ .
+\end{center}
+从而我们定义
+\begin{center}
+    $H_K(F)=\prod\limits_{\nu \in M_K}|F|_{\nu}^{n_{\nu}}$.
+\end{center}
+换句话说$,H_K(F)=H([a_0,...,a_N])$,其中$a_i$为$f_i$的系数；设$C_1,...$为依赖于$M,N,d$的常数,我们定义
+
+    \begin{equation}
+    \epsilon(\nu) =\begin{cases}
+        1 ,&\text{如果} \nu \in M_K^{\infty}\\
+        0 ,&\text{如果} \nu \in M_K^{0}
+    \end{cases}
+    \end{equation}
+从而我们有
+\begin{center}
+    $|t_1+...+t_n|_{\nu}\leq n^{\epsilon(\nu)}\Max\{|t_1|_{\nu},...,|t_n|_{\nu}\}$.
+\end{center}
+对$f_i$我们有上界估计
+\begin{center}
+    $|f_i(P)|_{\nu}\leq |F(P)|_{\nu}  \leq   C_1^{\epsilon(v)}|F|_{\nu}|P|_{\nu}^{d}$.
+\end{center}
+其中$C_1$是单项式的个数,最多为$\binom{N+d}{N}$ ;由$f_i$的任意性,对F,我们有
+\begin{center}
+    $|F(P)|_{\nu}\leq C_1^{\epsilon(v)}|F|_{\nu}|P|_{\nu}^{d}$
+\end{center}
+我们取便所有的赋值$\nu$,由乘积公式得
+\begin{center}
+    $H(F(P))\leq C_1H(F)H(P)^d$.
+\end{center}
+下面我们考虑下界：设仿射簇
+\begin{center}
+    $\{Q\in \mathbb{A}^{N+1}(\overline{\mathbb{Q}}):f_0(Q)=...=f_N(Q)=0\}$
+\end{center}
+包含$(0,...,0)$,则由希尔伯特零点定理,存在$g_{ij}\in \mathbb{Q}[X_0,...,X_N]$和正整数e,使得
+\begin{center}
+    $X_i^{e}=\sum\limits_{j=0}\limits^{M}g_{ij}f_j $.
+\end{center}
+我们设数域K包含$g_{ij}$的所有系数,去除等式右侧除了e次项外的所有项,我们不妨设$g_{ij}$为e-d其次,因而有
+\begin{center}
+    $|G|_{\nu}=\Max \{|b|_{\nu}\mid $b为$g_{ij}$的系数$\}$$,H_K(G)=\prod\limits_{\nu \in M_K}|G|_{\nu}^{n_{\nu}} $.
+\end{center}
+则上式我们可以得到
+\begin{center}
+    $|x_i|_{\nu}^{e}=\mid \sum\limits_{j=0}^{M}g_{ij}(P)f_j(P)\mid_{\nu}\leq C_2^{\epsilon(\nu)} \Max |g_{ij}(P)f_j(P)|_{\nu}\leq C_2^{\epsilon(\nu)}\Max |g_{ij}(P)||F(P)|_{\nu}$.
+\end{center}
+对$i$取最大值,我们有
+\begin{center}
+    $|P|_{\nu}^e\leq C_2^{\epsilon(\nu)}\Max |g_{ij}(P)||F(P)|_{\nu}$.
+\end{center}
+而$g_{ij}$为$e-d$其次,我们有
+\begin{center}
+    $|g_{ij}(P)|\leq C_3^{\epsilon(\nu)}|G|_{\nu}|P|_{\nu}^{e-d}$.
+\end{center}
+同样由$g_{ij}$的任意性,我们得
+\begin{center}
+    $|P|_{\nu}^{d}\leq C_4^{\epsilon(\nu)}|G|_{\nu}|F(P)|_{\nu}$.
+\end{center}
+当我们取便所有赋值时,由乘积公式,我们得到下界估计
+\begin{center}
+    $CH(P)^d\leq H(F(P))$.
+\end{center}
+
+\noindent (b)设$P \in \mathbb{P}^N(\overline{\mathbb{Q}})$,其齐次坐标为
+\begin{center}
+    $P=[x_0,...,x_N]$.
+\end{center}
+不妨设$x_j=1$,而$\mathbb{Q}(P)=Q(x_0,...,x_N)$,我们有
+\begin{center}
+$\begin{array}{cl}
+    H_{\mathbb{Q}(P)}(P)&=\prod\limits_{\nu \in M_{\mathbb{Q}(P)}}\Max \{|x_i|_{\nu}^{n_{\nu}}\}\\
+
+    &\geq\Max (\prod\limits_{\nu \in M_{\mathbb{Q}(P)}}\Max \{|x_i|_{\nu},1\})^{n_{\nu}}\\
+
+    &=\Max H_{\mathbb{Q}(P)}(x_i).
+\end{array}$
+\end{center}
+当$H(P)\leq C$且$[\mathbb{Q}(P):\mathbb{Q}]\leq d$时
+\begin{center}
+    $\Max H_{\mathbb{Q}(P)}(x_i)\leq C^d$$,\Max  [\mathbb{Q}(P):\mathbb{Q}]\leq d$
+\end{center}
+用$C^d$代替$C$,这等价于证明
+\begin{center}
+    $S=\{x\in \overline{\mathbb{Q}}:H(x)\leq C,[\mathbb{Q}(x):\mathbb{Q}]\leq d\}$.
+\end{center}
+为有限集,我们对$N=1$证明即可
+ 
+设$x\in S,e=[\mathbb{Q}(x):\mathbb{Q}]$,我们考虑$x$在$\mathbb{Q}$上的极小多项式
+\begin{center}
+    $f_x(T)=(T-x_1)\cdots(T-x_e)=T^e+a_1T^{e-1}+\cdots+a_e \in \mathbb{Q}[T]$.
+\end{center}
+我们有
+\begin{center}
+$\begin{array}{cl}
+    H([1,a_1,...,a_e])&\leq 2^{e-1}\prod\limits_{j=1}^{e}H(x_i)\\
+
+    &=2^{e-1}H(x)^e\\
+
+    &\leq (2C)^d
+\end{array}$
+\end{center}
+从而为有限集.
+\end{proof}
+
+下面我们将高度\ref{aht}改写并限制到椭圆曲线上,从而引出椭圆曲线上的无穷递降
+
+\begin{defi}我们定义射影空间上的(对数)高为
+    \begin{center}
+        $h:\mathbb{P}^N(\overline{K})\rightarrow \mathbb{R},h(P)=\Log H(P) $
+    \end{center}
+
+\end{defi}
+
+对数高的定义简化了我们的计算,下面我们将其限制到椭圆曲线上,会看出它拥有和我们上节一样的性质.
+
+\begin{pro}设$E/K$为椭圆曲线$,h$为高度函数$,f\in K(E)$为偶函数,则
+
+    \noindent  (a)设$Q \in E(\overline{K})$,定义 $h_f(P):=h(f(P))$则
+    \begin{center}
+       $h_f(P+Q)\leq 2h_f(P)+C_1$,对任意的$Q\in E(\overline{K})$.
+    \end{center}
+    $C_1$为依赖于$E,Q,f$的常数.
+
+
+
+   \noindent (b)对任意$m\in \mathbb{Z}$
+    \begin{center}
+        $h_f([m]P)\geq m^2h_f(P)+C_2$.
+    \end{center}
+    $C_2$为依赖于$E,Q,f$的常数.
+
+
+
+
+
+    \noindent(c)对任意的常数$C_3$,集合
+    \begin{center}
+        $\{P\in E(K):h_f(P)\leq C_3\}$.
+    \end{center}
+    为有限集.
+
+
+
+\end{pro}
+
+\begin{proof}
+(b)和(c)都是命题\ref{5.9}的变形,我们下面证明(a).
+
+我们先对$f=x$证明,选取$E/K$的Weierstrass形式
+\begin{center}
+    $y^2=x^3+Ax+B$.
+\end{center}
+ 
+因为$h_x(O)=0$$,h_x(P)=h_x(-P)$,不妨设$P,Q\neq O$,我们有
+\begin{center}
+    $x(P)=[x_1,1],x(Q)=[x_2,1]$,
+
+    $x(P+Q)=[x_3,1],x(P-Q)=[x_4,1]$.
+\end{center}
+从而
+\begin{center}
+
+$\begin{array}{l}
+    x_3+x_4=\frac{2(x_1+x_2)(A+x_1x_2)+4B}{(x_1+x_2)^2-4x_1x_2},\\
+
+    x_3x_4=\frac{(x_1x_2-A)^2-4B(x_1+x_2)}{(x_1+x_2)^2-4x_1x_2}.
+\end{array}$
+\end{center}
+定义映射$g:\mathbb{P}^2 \rightarrow \mathbb{P}^2$
+\begin{center}
+    $g([t,u,v])=[u^2-4tv,2u(At+v)+4Bt^2,(v-At)^2-4Btu]$.
+\end{center}
+则由$x_3$和$x_4$的形式我们有交换图
+
+\begin{center}
+    \begin{tikzcd}
+              {E \times E}       &    {E \times E}  \\
+            {\mathbb{P}^1\times\mathbb{P}^1}&{\mathbb{P}^1\times\mathbb{P}^1}\\
+            {\mathbb{P}^2}&{\mathbb{P}^2}\\
+        \arrow["G", from=1-1, to=1-2]
+        \arrow[from=1-1, to=2-1]
+        \arrow[from=1-2, to=2-2]
+        \arrow[from=2-1, to=3-1]
+        \arrow[from=2-2, to=3-2]
+        \arrow["g", from=3-1, to=3-2]
+        \arrow[dd, bend right = 60, "\sigma", swap,from=1-1,to=3-1]
+        \arrow[dd, bend left = 60, "\sigma"', swap,from=1-2,to=3-2]
+
+    \end{tikzcd}
+      
+\end{center}
+\vspace*{-0.3cm}
+其中
+\begin{center}
+    $G(P,Q)=(P+Q,P-Q)$.
+\end{center}
+而$\sigma $为以下两个映射的复合
+\begin{center}
+    $E \times E\rightarrow \mathbb{P}^1\times\mathbb{P}^1,(P,Q)\mapsto (x(P),x(Q))$.
+\end{center}
+和
+\begin{center}
+    $\mathbb{P}^1\times\mathbb{P}^1 \rightarrow \mathbb{P}^2,([\alpha_1,\beta_1],[\alpha_2,\beta_2])\mapsto [\beta_1\beta_2,\alpha_1\beta_2+\alpha_2\beta_1,\alpha_1\alpha_2]$.
+\end{center}
+而若我们用$t,u,v$表示$1,x_1+x_2,x_1x_2$,则$g([t,u,v])=[1,x_3+x_4,x_3x_4]$.
+
+下面我们证明$,g$确实为态射：设$g[t,u,v]=0$,若$t=0$,则有
+\begin{center}
+    $u^2-4tu=0,(v-At)^2-4Btu=0$.
+\end{center}
+从而$u=v=0$,从而我们设$t\neq 0$,令$x=u/2t$,带入方程$u^2-4tv=0$得到$x^2=v/t$;再将等式
+\begin{center}
+    $2u(At+v)+4Bt^2=0$$,(v-At)^2-4Btu=0$
+\end{center}
+除以$t^2$,得到
+\begin{center}
+    $\psi(x)=4x(A+x^2)+4B=4x^3+4Ax+4B=0$,
+
+    $\phi(x)=(x^2-A)^2-8Bx=x^4-2Ax^2-8Bx+A^2=0$.
+\end{center}
+进一步计算,我们有
+\begin{center}
+    $(12X^2+16A)\phi(X)-(3X^3-5AX-27B)\psi(X)=4(4A^3+27B^3)\neq 0$.
+\end{center}
+从而$g$为态射.
+
+接下来我们计算
+\begin{center}
+    $h(\sigma(P+Q,P-Q))=h(\sigma \circ G(P,Q))=h(g\circ \sigma(P,Q) )=2h(\sigma(P,Q))+O(1)$.
+\end{center}
+一个显然的事实是当$R_i=O$时$,h(\sigma(R_1,R_2))=h_x(R_1)+h_x(R_2)$,从而我们设
+\begin{center}
+    $x(R_1)=[\alpha_1,1],x(R_2)=[\alpha_2,1]$.
+\end{center}
+这样我们有
+\begin{center}
+    $h(\sigma(R_1,R_2))=h([1,\alpha_1+\alpha_2,\alpha_1\alpha_2])$$,h_x(R_1)+h_x(R_2)=h(\alpha_1)+h(\alpha_2)$.
+\end{center}
+而对$(T-\alpha_1)(T-\alpha_2)$计算,我们有
+\begin{center}
+    $h(\alpha_1)+h(\alpha_2)-\Log4\leq h([1,\alpha_1+\alpha_2,\alpha_1\alpha_2]) \leq h(\alpha_1)+h(\alpha_2)+\Log2$.
+\end{center}
+就得到了我们想要的结论.
+
+而对任意偶函数$f$,由交换图
+\begin{center}
+    \begin{tikzcd}
+            {E }  \\
+            {\mathbb{P}^1}&{\mathbb{P}^1}\\
+
+        \arrow["x", from=1-1, to=2-1]
+        \arrow["f", from=1-1, to=2-2]
+        \arrow["r", from=2-1, to=2-2]
+    \end{tikzcd}
+\end{center}
+\vspace{-0.3cm}
+对$h_f$我们有
+\begin{center}
+    $h_f=h_x\circ r=(\Deg r)h_x +O(1)$.
+\end{center}
+而由交换图
+\begin{center}
+    $\Deg f=(\Deg x)(\Deg r)=2\Deg r$.
+\end{center}
+从而
+\begin{center}
+    $2h_f=(\Deg f)h_x+O(1)$.
+\end{center}
+同理对函数$g$,有
+\begin{center}
+    $2h_g=(\Deg g)h_x+O(1)$.
+\end{center}
+因此我们得到,对任意偶函数$f,g$
+\begin{center}
+    $(\Deg g)h_f=(\Deg f)g+O(1)$.
+\end{center}
+这就对任意函数得到我们想要的结果.
+
+
+\end{proof}
+
+\noindent 将定理\ref{wmt}和定义\ref{aht}合起来,我们就可以完全证明\ref{mwt}
+\begin{thm}[Mordell--Weil]设$E/K$为椭圆曲线,则$E(K)$构成有限生成的阿贝尔群.
+
+
+\end{thm}
+\begin{proof}
+由定理\ref{wmt}我们知道$E(K)/mE(K)$是有限的,再有定义\ref{aht}我们知道椭圆曲线上存在高度.
+
+
+设$Q_1,Q_2...Q_k$为$E(K)/mE(K)$的代表元集$,C_{Q_1},C_{Q_2}...C_{Q_k}$为命题5.10(b)中所对应的系数,令$M=\sum_{i=1}^{k}C_{Q_i} +C_2 $,因为M有限,所以：
+
+\begin{center}
+    $S:= \{P\in E(K)~|~h(P)\leqslant M\} \bigcup \{Q_i\}_{i=1}^{k}$
+\end{center}
+\noindent
+是有限集,事实上,该集合即为$E(K)$的生成元集合.下面采用反证法：
+
+若不然,取不能被$S$所生成的集合中高度最小的点$P_0\in E(Q)$,故存在$Q_j,R\in E(K)$,使得：
+\begin{center}
+   $ P_0-Q_j=2R$
+\end{center}
+故R必不能被$S$所生成,由高度最小性我们知道$h(P_0)\leqslant h(R)$,而由(3)我们知道：
+\begin{center}
+    $h(R)\leqslant\frac{1}{4}(C_2+h(P_0-Q_j))$
+
+   ~~~~~~~~~ $\leqslant\frac{1}{4}(C_2+C_{Q_j}+2h(P_0))$
+
+    ~$\leqslant\frac{1}{4}(M+2h(P_0))$
+
+    $\leqslant\frac{1}{4}(M+2h(R))$
+\end{center}
+\noindent
+这样我们得到$h(R)\leqslant\frac{1}{2}M$,从而$R\in S$,矛盾!
+  
+于是$,E(K)$便可以被有限集$S$所生成,从而构成有限生成Abel群.
+\end{proof}
+
+
+最后我们介绍高度机器的概念,该定理证明任意代数簇上均存在高度,从而也说明了我们定义的合理性.
+\begin{thm}[Weil高度机器]对任意非异代数簇$V/\overline{\mathbb{Q}}$,存在映射
+    \begin{center}
+        $h_v:\Div(V)\rightarrow \{$函数$V(\overline{\mathbb{Q}})\rightarrow \mathbb{R}\}$
+    \end{center}
+    且满足
+    
+    \noindent(a)(正规性)设$H\subset P^N$为超平面$,h:P^N(\overline{\mathbb{Q}})\rightarrow \mathbb{R}$为对偶高度,则
+    \begin{center}
+        $h_{\mathbb{P}^N,H}(P)=h(P)+O(1)$,对任意$P\in V(\overline{\mathbb{Q}})$
+    \end{center}
+    
+    \noindent(b)(函数性)设$\phi:V \rightarrow V^{\prime}$为非异簇间态射$,D\in \Div(V^{\prime})$,则
+    \begin{center}
+        $h_{V,\phi^{*}D}(P)=h_{V^{\prime},D}(\phi(P))+O(1)$,对任意$P\in V(\overline{\mathbb{Q}})$
+    \end{center}
+    
+    \noindent(c)(加性)s设$D,E\in \Div(V)$,则
+    \begin{center}
+        $h_{V,D+E}(P)=h_{V,D}(P)+h_{V,E}(P)+O(1)$,对任意$P\in V(\overline{\mathbb{Q}})$
+    \end{center}
+    
+    \noindent(d)(线性等价)设$D,E\in \Div(V)$且D线性等价于E,则
+    \begin{center}
+        $h_{V,D}(P)=h_{V,E}(P)+O(1)$,对任意$P\in V(\overline{\mathbb{Q}})$
+    \end{center}
+    
+    
+    
+    \noindent(e)(正定性)设$D\in \Div(V)$为正定除子,则
+    \begin{center}
+        $h_{V,D}(P)\geq O(1)$,对任意$P\in V(\overline{\mathbb{Q}})\backslash \bigcap\limits_{E\sim D,E\geq 0} \mid E \mid$.
+    \end{center}
+    
+    
+    \noindent(f)(有限性)设$D\in \Div(V)$,则对任意常数$A,B$,集合
+    \begin{center}
+        $S=\{P\in V(\overline{\mathbb{Q}})\mid [\mathbb{Q}(P):Q]\leq A,h_{V,D}\leq B\}$
+    \end{center}
+    为有限集.
+    
+    \noindent(g)(唯一性)高度函数$h_{V,D}$在相差一个常数$O(1)$的意义下是唯一的.
+    
+\end{thm}
+\noindent 证明：见\cite{Bombieri2006},\cite{GTM241}.
+\section{经费使用情况}
+
+\noindent
+\begin{tabular}{|l|c|p{4cm}|}
+	\hline
+	用途&名称&	使用金额（元）
+	\\
+	
+	\hline
+    资料费&Algebra~~~~~~~~&119.20
+	
+	\\
+	\hline
+	~&Algebraic geometry&99.20
+
+	\\
+	\hline
+    ~&Algebraic number theory&975.00
+
+    \\
+    \hline
+	&The arithmetic of elliptic curves&485.00
+
+	\\
+	\hline
+    &The arithmetic of dynamical systems&471.00
+
+    \\
+	\hline
+    &Algebraic geometry：scheme&572.00
+
+    \\
+	\hline
+     &光滑流形导论&89.70
+
+    \\
+	\hline
+      &微分流形与李群基础&45.93
+
+    \\
+	\hline
+
+	合计&&2,783.03
+	
+	\\
+	\hline
+\end{tabular}
+\section{问题、体会与收获}
+通过本次大创的学习,本小组学习了椭圆曲线的算术理论,对有限域、局部域、整体域上椭圆曲线的一般性质有了更进一步的认识,但对椭圆曲线上的Mordell--Weil群结构仍缺乏理解.因为Mordell定理成立,由有限生成 Abel 群结构定理, 我们有直和分解
+
+\begin{center}
+    $E(K)\cong Z^r\oplus E(K)_{tor}$
+\end{center}
+我们称 r 为椭圆曲线 E(K) 的\textbf{秩 (rank)},$E(K)_{tor}$ 为 E(K) 的\textbf{挠部分(Torsion Part)}.因此刻画其Mordell--Weil群便归结于刻画其秩与挠部分的结构.下面陈述一些关于这部分的事实，其有助于我们理解椭圆曲线的群结构
+
+\begin{itemize}
+    \item 对挠部分的刻画
+
+    ~~当$K=\mathbb{Q}$时, $E(K)_{tor}$同构于循环群 $\mathbb{Z}/n\mathbb{Z} (1\leqq n \leqq 12, n \neq 11) $或 $\mathbb{Z}/2\mathbb{Z} \times  \mathbb{Z}/(2n\mathbb{Z}) (1\leq  N\leq 4)$, 并且这几种情况都可能发生.而对任意给定的数域$\mathbb{K}$, $E(K)_{tor}$也只有有限种情况(\cite{Merel}).
+
+    \item 对自由部分的刻画
+    
+    ~~这是较难的部分, 至今为止还没有一个切实有效的计算方法。BSD 猜想给出了其与解析理论的联系，但至今仍是一个未解之谜.
+
+\end{itemize}
+另外,给定代数数域K,对于类群Cl(K)有另一种表示
+\begin{center}
+   $ Cl(K):=\ker\{H^{1}(K,\mathcal{O}_K^{*})\rightarrow \prod\limits_{\nu}H^{1}(K_{\nu},\mathcal{O}_{\bar{K_{\nu}}}^{*}) \}$
+\end{center}
+而类群是有限的,从而人们猜测Shafavich群
+\begin{center}
+    \textup{Ш}$(E/K)=\ker\{H^1(K,E({\overline{K}}))\rightarrow \prod\limits_{\nu \in M_K}H^1(K_{\nu},E(\overline{K}_{\nu})) \}$
+\end{center}
+也是有限的,Kolyvagin\cite{Kolyvagin}和Rubin\cite{Rubin}对于部分椭圆曲线证明了这个结果,但大部分对于目前来说仍是一个猜想. 
+
+\section{致谢}
+值本项目完成之际，谨向给予我无私帮助的老师们和同学们致以诚挚的感谢。
+
+首先感谢刘春晖老师一直以来的帮助和支持，刘老师严谨的治学态度使我在学习和生活中收益良多。在本项目的学习过程中，刘老师给予了我无微不至的建议和帮助，没有刘老师的帮助，就没有本文的出现。还要感谢田乙胜老师对本文后半部分的修改，您的建议让我学到了许多平时没有注意到的地方。
+
+感谢哈尔滨工业大学数学学院的各位老师，他们的敬业精神值得我去学习；我要特别感谢陈胜教授，在学习和生活上陈老师给了我许多帮助和建议。
+
+最后感谢我的朋友和亲人们，感谢你们一直以来对我的全力支持和帮助。
+
+\addcontentsline{toc}{section}{参考文献}
+\begin{thebibliography}{100}
+    \bibitem{KatoKurukawaSaito} 加藤和也, 黑川信重, 斋藤毅 (胥明伟, 印林生译). 数论1: Fermat的梦想和类域论. 高等教育出版社, 2009. 
+    \bibitem{Bombieri2006} Bombieri, Enrico; Gubler, Walter. Heights in Diophantine geometry. New Mathematical Monographs, 4. Cambridge University Press, Cambridge, 2006.
+    \bibitem{Stein2003} Stein, Elias M.; Shakarchi, Rami. Complex analysis, Princeton Lectures in Analysis. Princeton University Press, 2003.
+    \bibitem{GTM201} Hindry, Marc; Silverman, Joseph H.. Diophantine geometry. An introduction. Graduate Texts in Mathematics, 201. Springer-Verlag, New York, 2000.
+    \bibitem{Moriwaki2022} Ikoma, Hideaki; Kawaguchi, Shu; Moriwaki, Atsushi. The Mordell conjecture—a complete proof from Diophantine geometry. Cambridge Tracts in Mathematics, 226. Cambridge University Press, Cambridge, 2022.
+    \bibitem{Merel} Merel, Loïc Bornes pour la torsion des courbes elliptiques sur les corps de nombres. (French) [Bounds for the torsion of elliptic curves over number fields] Invent. Math. 124 (1996), no. 1-3, 437-449.
+    \bibitem{GTM106} Silverman, Joseph H.. The arithmetic of elliptic curves. Second edition. Graduate Texts in Mathematics, 106. Springer, Dordrecht, 2009.
+    \bibitem{UTM156}Silverman, Joseph H.; Tate, John T. Rational points on elliptic curves. Second edition. Undergraduate Texts in Mathematics. Springer, Cham, 2015.
+    \bibitem{GTM52}R. Hartshorne.Algebraic geometry, Springer-Verlag, New York, 1977, Graduate Texts in Mathematics, No. 52.
+    \bibitem{Tate}J.Tate.Endomorphisms of abelian varieties over finite fields. Invent. Math., 2:134-144, 1966.
+    \bibitem{Faltings1}G.Faltings.Endlichkeitssatze fur abelsche Varietaten uber Zahlk orpern. Invent. Math.,73(3):349-366, 1983.
+    \bibitem{Faltings2}G. Faltings. Calculus on arithmetic surfaces. Ann. of Math. (2), 119(2):387-424, 1984.
+    \bibitem{Faltings3}G. Faltings. Finiteness theorems for abelian varieties over number fields. In Arithmetic geometry (Storrs, Conn., 1984), pages 9-27. Springer, New York, 1986. Tra\textup{ns}lated from the German original [Invent. Math. 73 (1983), no. 3, 349–366; ibid. 75 (1984),no. 2, 381; MR 85g:11026ab] by Edward Shipz.
+    \bibitem{CTM 144}Skorobogatov,Alexei. Torsors and rational points.Cambridge Tracts in Math., 144.Cambridge University Press, Cambridge, 2001, viii+187 pp.
+    \bibitem{GTM73}Hungerford,Thomas W.Algebra.Graduate Texts in Mathematics,73.Springer-Verlag, New York-Berlin, 1980, xxiii+502 pp.
+    \bibitem{GTM241}Silverman, Joseph H.The arithmetic of dynamical systems. Grad. Texts in Math., 241 Springer, New York, 2007. x+511 pp.
+    \bibitem{Fulton}Fulton, William.Algebraic curves:An introduction to algebraic geometry. Notes written with the collaboration of Richard Weiss. Reprint of 1969 original.Adv. Book Classics.Addison-Wesley Publishing Company, Advanced Book Program, Redwood City, CA, 1989. xxii+226 pp.
+    \bibitem{ATEC}Silverman, Joseph H.Advanced topics in the arithmetic of elliptic curves.Grad. Texts in Math., 151.Springer-Verlag, New York, 1994, xiv+525 pp.ISBN: 0-387-94328-5.
+    \bibitem{Weil1} Deligne, Pierre.La conjecture de Weil.I.Inst. Hautes Études Sci. Publ. Math.(1974), no. 43, 273–307.
+    \bibitem{Weil2}La conjecture de Weil. II.Deligne, Pierre.Inst. Hautes Études Sci. Publ. Math.(1980), no. 52, 137–252.
+    \bibitem{ant} Neukirch, Jürgen. Algebraic number theory.Grundlehren Math. Wiss., 322.Springer-Verlag, Berlin, 1999, xviii+571 pp.ISBN: 3-540-65399-6.
+    \bibitem{AFR} D. Bump, Automorphic forms and representations, vol. 55. Cambridge university press, 1998.
+    \bibitem{Kolyvagin}V. A. Kolyvagin. Finiteness of $E(\mathbb{Q})$ and $X(E, \mathbb{Q})$ for a subclass of Weil curves. Izv.Akad. Nauk SSSR Ser. Mat., 52(3):522–540, 670–671, 1988.
+    \bibitem{Rubin}K. Rubin. Tate-Shafarevich groups and L-functions of elliptic curves with complex.multiplication. Invent. Math., 89(3):527–559, 1987.
+ \end{thebibliography}
+
+ \end{document}
